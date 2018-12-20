@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="runelite-deob">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/runelite-deob.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/runelite-deob.jar!/" />
+    </SOURCES>
+  </library>
+</component>
