@@ -1,18 +1,15 @@
 package kt.osrs.analysis.tree
 
+import kt.osrs.analysis.tree.flow.Block
 import kt.osrs.analysis.tree.node.AbstractNode
-import org.objectweb.asm.commons.cfg.Block
 import org.objectweb.asm.tree.AbstractInsnNode
 import org.objectweb.asm.tree.AbstractInsnNode.LABEL
 import org.objectweb.asm.tree.MethodNode
 import java.util.*
 
-/**
- * @author Tyler Sedlar
- */
 class NodeTree constructor(private val mn: MethodNode) : AbstractNode(null, null, -1, -1) {
 
-    constructor(block: Block) : this(block.owner)
+    constructor(block: Block) : this(block.owner!!)
 
     override fun method(): MethodNode {
         return mn

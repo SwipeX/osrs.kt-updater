@@ -30,7 +30,6 @@
 package org.objectweb.asm.tree;
 
 import org.objectweb.asm.*;
-import org.objectweb.asm.commons.cfg.query.InsnQuery;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -727,22 +726,6 @@ public class MethodNode extends MethodVisitor {
         int count = 0;
         for (AbstractInsnNode ain : instructions.toArray()) {
             if (ain.opcode() == opcode) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    /**
-     * Gets the amount of times the given query has been matched
-     *
-     * @param entry The query to match
-     * @return The amount of times the given query has been matched.
-     */
-    public int count(InsnQuery entry) {
-        int count = 0;
-        for (AbstractInsnNode ain : instructions.toArray()) {
-            if (entry.matches(ain)) {
                 count++;
             }
         }

@@ -10,7 +10,7 @@ import org.objectweb.asm.tree.AbstractInsnNode.*
 import java.util.*
 
 open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractInsnNode?, var collapsed: Int, producing: Int) :
-    Tree<AbstractNode>(), Opcodes {
+        Tree<AbstractNode>(), Opcodes {
     var producing: Int = 0
     private var produceCount: Int = 0
     var isHandler: Boolean = false
@@ -351,7 +351,7 @@ open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractI
             if (node!!.opcode() == opcode) {
                 return node
             }
-           node = node.next()
+            node = node.next()
         }
         return null
     }
@@ -364,43 +364,36 @@ open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractI
             if (node.opcode() == opcode) {
                 return node
             }
-           node = node.previous()
+            node = node.previous()
         }
         return null
     }
 
-    fun findChildren(opcode: Int): MutableList<AbstractNode>? {
+    fun children(opcode: Int): MutableList<AbstractNode>? {
         val children = filter { n -> n.opcode() == opcode }.toMutableList()
         return if (!children.isEmpty()) children else null
     }
 
-    fun layerAll(vararg opcodes: Int): List<AbstractNode>? {
-        val children = findChildren(opcodes[0]) ?: return null
-        if (opcodes.size == 1) {
+    fun branch(vararg opcodes: Int): MutableList<AbstractNode>? {
+        val children = children(opcodes[0]) ?: return null
+        if (opcodes.size == 1)
             return children
-        }
         for (i in 1 until opcodes.size) {
-            val next = ArrayList<AbstractNode>()
-            for (n in children) {
-                val match = n.findChildren(opcodes[i]) ?: continue
-                next.addAll(match)
-            }
-            if (next.isEmpty()) {
-                return null
-            } else {
-                children.clear()
-                children.addAll(next)
-            }
+            val next = mutableListOf<AbstractNode>()
+            children.forEach { it.children(opcodes[i])?.let { nodes -> next.addAll(nodes) } }
+            if (next.isEmpty()) return null
+            children.clear()
+            children.addAll(next)
         }
         return children
     }
 
-    fun layer(vararg opcodes: Int): AbstractNode? {
-        val nodes = layerAll(*opcodes)
+    fun leaf(vararg opcodes: Int): AbstractNode? {
+        val nodes = branch(*opcodes)
         return if (nodes != null) nodes[0] else null
     }
 
-    fun preLayer(vararg opcodes: Int): AbstractNode? {
+    fun parent(vararg opcodes: Int): AbstractNode? {
         var node: AbstractNode? = this
         for (opcode in opcodes) {
             node = node!!.parent()
@@ -415,18 +408,16 @@ open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractI
         return first(opcode) != null
     }
 
-    fun opname(): String {
-        try {
-            return Assembly.OPCODES[opcode()]
+    fun opcodeString(): String {
+        return try {
+            Assembly.OPCODES[opcode()]
         } catch (e: IndexOutOfBoundsException) {
             try {
-                return insn()!!.javaClass.simpleName
+                insn()!!.javaClass.simpleName
             } catch (err: Exception) {
-                return insn()!!.toString()
+                insn()!!.toString()
             }
-
         }
-
     }
 
     override fun hashCode(): Int {
@@ -437,7 +428,7 @@ open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractI
         result = 31 * result + producing
         result = 31 * result + produceCount
         result = 31 * result + isHandler.hashCode()
-        result = 31 * result + (instructions?.contentHashCode() ?: 0)
+        result = 31 * result + instructions.contentHashCode()
         return result
     }
 }

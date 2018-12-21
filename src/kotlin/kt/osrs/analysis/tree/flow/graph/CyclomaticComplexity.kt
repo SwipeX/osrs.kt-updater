@@ -4,43 +4,35 @@
  * License as published by the Free Software Foundation; either
  * version 2 of the license, or (at your option) any later version.
  */
-package org.objectweb.asm.commons.cfg.graph;
+package kt.osrs.analysis.tree.flow.graph
 
 /**
  * @author Tyler Sedlar
  */
-public class CyclomaticComplexity {
+class CyclomaticComplexity(private val edges: Int, private val nodes: Int, private val connections: Int) {
 
-    private final int edges, nodes, connections;
+    private var type = ComplexityType.LINEAR
 
-    private ComplexityType type = ComplexityType.LINEAR;
-
-    public enum ComplexityType {
+    enum class ComplexityType {
         STANDARD {
-            public int evaluate(int edges, int nodes, int connections) {
-                return edges - nodes + (connections * 2);
+            override fun evaluate(edges: Int, nodes: Int, connections: Int): Int {
+                return edges - nodes + connections * 2
             }
         },
         LINEAR {
-            public int evaluate(int edges, int nodes, int connections) {
-                return edges - nodes + connections;
+            override fun evaluate(edges: Int, nodes: Int, connections: Int): Int {
+                return edges - nodes + connections
             }
         },
         SIMPLE {
-            public int evaluate(int edges, int nodes, int connections) {
-                return edges - nodes + 2;
+            override fun evaluate(edges: Int, nodes: Int, connections: Int): Int {
+                return edges - nodes + 2
             }
         };
 
-        public int evaluate(int edges, int nodes, int connections) {
-            throw new IllegalArgumentException("No type specified");
+        open fun evaluate(edges: Int, nodes: Int, connections: Int): Int {
+            throw IllegalArgumentException("No type specified")
         }
-    }
-
-    public CyclomaticComplexity(int edges, int nodes, int connections) {
-        this.edges = edges;
-        this.nodes = nodes;
-        this.connections = connections;
     }
 
     /**
@@ -48,9 +40,9 @@ public class CyclomaticComplexity {
      *
      * @return the complexity with standard evaluation.
      */
-    public CyclomaticComplexity standard() {
-        type = ComplexityType.STANDARD;
-        return this;
+    fun standard(): CyclomaticComplexity {
+        type = ComplexityType.STANDARD
+        return this
     }
 
     /**
@@ -58,9 +50,9 @@ public class CyclomaticComplexity {
      *
      * @return the complexity with linear evaluation.
      */
-    public CyclomaticComplexity linear() {
-        type = ComplexityType.LINEAR;
-        return this;
+    fun linear(): CyclomaticComplexity {
+        type = ComplexityType.LINEAR
+        return this
     }
 
     /**
@@ -68,9 +60,9 @@ public class CyclomaticComplexity {
      *
      * @return the complexity with simple evaluation.
      */
-    public CyclomaticComplexity simple() {
-        type = ComplexityType.SIMPLE;
-        return this;
+    fun simple(): CyclomaticComplexity {
+        type = ComplexityType.SIMPLE
+        return this
     }
 
     /**
@@ -78,8 +70,8 @@ public class CyclomaticComplexity {
      *
      * @return the edge count.
      */
-    public int edges() {
-        return edges;
+    fun edges(): Int {
+        return edges
     }
 
     /**
@@ -87,8 +79,8 @@ public class CyclomaticComplexity {
      *
      * @return the node count.
      */
-    public int nodes() {
-        return nodes;
+    fun nodes(): Int {
+        return nodes
     }
 
     /**
@@ -96,8 +88,8 @@ public class CyclomaticComplexity {
      *
      * @return the connection count.
      */
-    public int connections() {
-        return connections;
+    fun connections(): Int {
+        return connections
     }
 
     /**
@@ -105,8 +97,8 @@ public class CyclomaticComplexity {
      *
      * @return the complexity evaluation.
      */
-    public int complexity() {
-        return type.evaluate(edges, nodes, connections);
+    fun complexity(): Int {
+        return type.evaluate(edges, nodes, connections)
     }
 
     /**
@@ -117,9 +109,9 @@ public class CyclomaticComplexity {
      * @return <t>true</t> if the complexity is within the two given values,
      * otherwise <t>false</t>.
      */
-    public boolean within(int low, int high) {
-        int complexity = complexity();
-        return complexity >= low && complexity <= high;
+    fun within(low: Int, high: Int): Boolean {
+        val complexity = complexity()
+        return complexity >= low && complexity <= high
     }
 
     /**
@@ -129,8 +121,8 @@ public class CyclomaticComplexity {
      * @return <t>true</t> if the complexity is less than the given value,
      * otherwise <t>false</t>.
      */
-    public boolean less(int x) {
-        return complexity() < x;
+    fun less(x: Int): Boolean {
+        return complexity() < x
     }
 
     /**
@@ -140,8 +132,8 @@ public class CyclomaticComplexity {
      * @return <t>true</t> if the complexity is greater than the given value,
      * otherwise <t>false</t>.
      */
-    public boolean greater(int x) {
-        return complexity() > x;
+    fun greater(x: Int): Boolean {
+        return complexity() > x
     }
 
     /**
@@ -151,13 +143,12 @@ public class CyclomaticComplexity {
      * @return <t>true</t> if the complexity equals the given value, otherwise
      * <t>false</t>.
      */
-    public boolean is(int x) {
-        return complexity() == x;
+    fun `is`(x: Int): Boolean {
+        return complexity() == x
     }
 
-    @Override
-    public String toString() {
+    override fun toString(): String {
         return String.format("cyclomatic[edges=%s][nodes=%s][connections=%s][complexity=%s/%s]", edges, nodes,
-                connections, type.toString(), complexity());
+                connections, type.toString(), complexity())
     }
 }

@@ -1,9 +1,9 @@
 package kt.osrs
 
+import kt.osrs.analysis.tree.flow.FlowVisitor
+import kt.osrs.analysis.tree.flow.graph.FlowGraph
 import kt.osrs.event.Stopwatch
 import org.objectweb.asm.Opcodes.*
-import org.objectweb.asm.commons.cfg.FlowVisitor
-import org.objectweb.asm.commons.cfg.graph.FlowGraph
 import org.objectweb.asm.commons.util.JarArchive
 import org.objectweb.asm.tree.ClassNode
 import org.objectweb.asm.tree.MethodNode
@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
     val flowgraph = graphs[clazz]!![method]!!
     flowgraph.forEachIndexed { index, block ->
         run {
-            val node = block.tree().layerAll(ASTORE, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, AALOAD,GETFIELD)
+            val node = block.tree().branch(ASTORE, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, AALOAD,GETFIELD)
             if (node != null && !node.isEmpty())
                 println("Found player.Actions @ ${node.first()}")
         }

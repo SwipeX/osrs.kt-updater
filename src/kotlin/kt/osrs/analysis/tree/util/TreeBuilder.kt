@@ -4,7 +4,7 @@ import kt.osrs.analysis.tree.NodeTree
 import kt.osrs.analysis.tree.node.*
 import org.objectweb.asm.Opcodes.*
 import org.objectweb.asm.Type
-import org.objectweb.asm.commons.cfg.Block
+import kt.osrs.analysis.tree.flow.Block
 import org.objectweb.asm.tree.*
 import java.util.*
 
