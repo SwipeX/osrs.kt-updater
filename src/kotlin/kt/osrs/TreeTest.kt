@@ -14,7 +14,6 @@ import org.objectweb.asm.tree.MethodNode
 import java.io.File
 
 
-
 fun main(args: Array<String>) {
     val deob = "./jars/deob.jar"
     val archive = JarArchive(File(deob))
@@ -27,6 +26,7 @@ fun main(args: Array<String>) {
             graph?.forEach {
                 playerActions.visit(it)
                 exchangeItemID.visit(it)
+                charAnimation.visit(it)
             }
         }
     }
@@ -39,22 +39,28 @@ val playerActions = object : BlockVisitor() {
             println("Found player.Actions @ $node")
     }
 }
-
+val charAnimation = object : BlockVisitor() {
+    override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
+        val node = block.tree().leaf(IF_ICMPLE, IALOAD, GETFIELD, INVOKESTATIC, GETFIELD)
+        if (node != null)
+            println("Found character.Animation @ $node")
+    }
+}
 val exchangeItemID = object : BlockVisitor() {
     override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
-      block.tree().accept(object: NodeVisitor() {
-          override fun visitField(fmn: FieldMemberNode) {
-              if(fmn.opcode() == PUTFIELD && fmn.owner().equals("c") && fmn.desc().equals("I")){ //check against {ExchangeOffer} and type
-                  val leaf = fmn.leaf(ILOAD) ?: return
-                  val vn = leaf as VariableNode
-                  when (vn.variable()) {
-                      3 -> println("Found itemID $fmn")
-                      4 -> println("Found price $fmn")
-                      5 -> println("Found quantity $fmn")
-                  }
-              }
-          }
-      })
+        block.tree().accept(object : NodeVisitor() {
+            override fun visitField(fmn: FieldMemberNode) {
+                if (fmn.opcode() == PUTFIELD && fmn.owner().equals("c") && fmn.desc().equals("I")) { //check against {ExchangeOffer} and type
+                    val leaf = fmn.leaf(ILOAD) ?: return
+                    val vn = leaf as VariableNode
+                    when (vn.variable()) {
+                        3 -> println("Found exchange.itemID $fmn")
+                        4 -> println("Found exchange.price $fmn")
+                        5 -> println("Found exchange.quantity $fmn")
+                    }
+                }
+            }
+        })
     }
 }
 
