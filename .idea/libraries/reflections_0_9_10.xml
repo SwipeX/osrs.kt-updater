@@ -2,8 +2,13 @@
   <library name="reflections-0.9.10">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/reflections-0.9.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/annotations-2.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/guava-15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javassist-3.19.0-GA.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/annotations-2.0.1.jar!/" />
+    </SOURCES>
   </library>
 </component>

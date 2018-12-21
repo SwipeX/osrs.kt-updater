@@ -1,5 +1,6 @@
 package kt.osrs
 
+import kt.osrs.analysis.tree.flow.BlockVisitor
 import kt.osrs.analysis.tree.flow.FlowVisitor
 import kt.osrs.analysis.tree.flow.graph.FlowGraph
 import kt.osrs.event.Stopwatch
@@ -14,15 +15,22 @@ fun main(args: Array<String>) {
     val archive = JarArchive(File(deob))
     val classes: MutableMap<String, ClassNode>? = archive.build()
     val graphs = flowGraphs(classes!!)
-    val clazz = classes["es"]!!
-    val method = classes["es"]?.getMethod("ig", "(Lbk;III)V")!!
-    val flowgraph = graphs[clazz]!![method]!!
-    flowgraph.forEachIndexed { index, block ->
-        run {
-            val node = block.tree().branch(ASTORE, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, AALOAD,GETFIELD)
-            if (node != null && !node.isEmpty())
-                println("Found player.Actions @ ${node.first()}")
+    classes.values.forEach {
+        val graphz = graphs[it]
+        it.methods.forEach {
+            val graph = graphz!![it]
+            graph?.forEach {
+                    playerActions.visit(it)
+            }
         }
+    }
+}
+
+val playerActions = object: BlockVisitor(){
+    override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
+        val node = block.tree().leaf(ASTORE, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, AALOAD, GETFIELD)
+        if (node != null)
+            println("Found player.Actions @ $node")
     }
 }
 
