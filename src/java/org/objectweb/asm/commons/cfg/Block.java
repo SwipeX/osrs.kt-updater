@@ -1,6 +1,7 @@
 package org.objectweb.asm.commons.cfg;
 
 import kt.osrs.analysis.tree.NodeTree;
+import kt.osrs.analysis.tree.util.TreeBuilder;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.commons.cfg.query.InsnQuery;
 import org.objectweb.asm.commons.util.Assembly;
@@ -42,6 +43,15 @@ public class Block implements Comparable<Block> {
         if (label != null) {
             this.instructions.add(new LabelNode(label));
         }
+    }
+
+    /**
+     * Constructs a NodeTree for the current block.
+     */
+    public NodeTree tree() {
+        if (tree == null)
+            tree = TreeBuilder.INSTANCE.build(this);
+        return tree;
     }
 
     public boolean follow(BlockHandler handler) {

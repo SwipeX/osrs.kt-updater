@@ -53,7 +53,7 @@ public class Digraph<V, E> implements Iterable<V> {
         return Collections.unmodifiableSet(graph.get(node));
     }
 
-    public void graph(Digraph<V, E> graph) {
+    public void consume(Digraph<V, E> graph) {
         this.graph.putAll(graph.graph);
     }
 
@@ -76,10 +76,10 @@ public class Digraph<V, E> implements Iterable<V> {
     }
 
     /**
-     * Gets the complexity for this graph.
+     * Gets the complexity for this consume.
      *
      * @param cached <t>true</t> to get the cached complexity.
-     * @return the complexity for this graph.
+     * @return the complexity for this consume.
      */
     public CyclomaticComplexity cyclomatic(boolean cached) {
         if (cached && cyclomatic != null) {
@@ -99,9 +99,9 @@ public class Digraph<V, E> implements Iterable<V> {
     }
 
     /**
-     * Gets the complexity for this graph.
+     * Gets the complexity for this consume.
      *
-     * @return the complexity for this graph.
+     * @return the complexity for this consume.
      */
     public CyclomaticComplexity cyclomatic() {
         return cyclomatic(true);

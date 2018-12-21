@@ -4,8 +4,10 @@ import kt.osrs.analysis.tree.NodeTree
 import kt.osrs.analysis.tree.node.*
 import org.objectweb.asm.Opcodes.*
 import org.objectweb.asm.Type
+import org.objectweb.asm.commons.cfg.Block
 import org.objectweb.asm.tree.*
 import java.util.*
+
 
 /**
  * @author Tyler Sedlar
@@ -29,8 +31,8 @@ object TreeBuilder {
         var c = 0
         var p = 0
         if (ain is InsnNode || ain is IntInsnNode || ain is VarInsnNode ||
-            ain is JumpInsnNode || ain is TableSwitchInsnNode ||
-            ain is LookupSwitchInsnNode) {
+                ain is JumpInsnNode || ain is TableSwitchInsnNode ||
+                ain is LookupSwitchInsnNode) {
             c = CDS[ain.opcode()]
             p = PDS[ain.opcode()]
         } else if (ain is FieldInsnNode) {
@@ -135,6 +137,25 @@ object TreeBuilder {
             n.producing = 0
         }
         return node
+    }
+
+    fun build(block: Block): NodeTree {
+        val tree = NodeTree(block)
+        val nodes = ArrayList<AbstractNode>()
+        var start = System.nanoTime()
+        nodes.addAll(block.instructions.map { ain -> createNode(ain, tree, getTreeSize(ain)) })
+        var end = System.nanoTime()
+        create += end - start
+        treeIndex = nodes.size - 1
+        var node: AbstractNode? = iterate(nodes)
+        start = System.nanoTime()
+        while (node != null) {
+            tree.addFirst(node)
+            node = iterate(nodes)
+        }
+        end = System.nanoTime()
+        iterate += end - start
+        return tree
     }
 
     fun build(mn: MethodNode): NodeTree {

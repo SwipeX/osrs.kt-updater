@@ -369,12 +369,12 @@ class MethodWriter extends MethodVisitor {
     // ------------------------------------------------------------------------
 
     /*
-     * Fields for the control flow graph analysis algorithm (used to compute the
-     * maximum stack size). A control flow graph contains one node per "basic
+     * Fields for the control flow consume analysis algorithm (used to compute the
+     * maximum stack size). A control flow consume contains one node per "basic
      * block", and one edge per "jump" from one basic block to another. Each
      * node (i.e., each basic block) is represented by the Label object that
      * corresponds to the first instruction of this basic block. Each node also
-     * stores the list of its successors in the graph, as a linked list of Edge
+     * stores the list of its successors in the consume, as a linked list of Edge
      * objects.
      */
 
@@ -997,7 +997,7 @@ class MethodWriter extends MethodVisitor {
                     nextInsn = new org.objectweb.asm.Label();
                     /*
                      * note that, by construction in this method, a JSR block
-                     * has at least two successors in the control flow graph:
+                     * has at least two successors in the control flow consume:
                      * the first one leads the next instruction after the JSR,
                      * while the second one leads to the JSR target.
                      */
@@ -1395,7 +1395,7 @@ class MethodWriter extends MethodVisitor {
             }
         }
         if (org.objectweb.asm.ClassReader.FRAMES && compute == FRAMES) {
-            // completes the control flow graph with exception handler blocks
+            // completes the control flow consume with exception handler blocks
             org.objectweb.asm.Handler handler = firstHandler;
             while (handler != null) {
                 org.objectweb.asm.Label l = handler.start.getFirst();
@@ -1510,7 +1510,7 @@ class MethodWriter extends MethodVisitor {
 
             this.maxStack = max;
         } else if (compute == MAXS) {
-            // completes the control flow graph with exception handler blocks
+            // completes the control flow consume with exception handler blocks
             org.objectweb.asm.Handler handler = firstHandler;
             while (handler != null) {
                 org.objectweb.asm.Label l = handler.start;
@@ -1540,7 +1540,7 @@ class MethodWriter extends MethodVisitor {
             }
 
             if (subroutines > 0) {
-                // completes the control flow graph with the RET successors
+                // completes the control flow consume with the RET successors
                 /*
                  * first step: finds the subroutines. This step determines, for
                  * each basic block, to which subroutine(s) it belongs.

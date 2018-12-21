@@ -30,19 +30,19 @@
 package org.objectweb.asm;
 
 /**
- * An edge in the control flow graph of a method body. See {@link Label Label}.
+ * An edge in the control flow consume of a method body. See {@link Label Label}.
  *
  * @author Eric Bruneton
  */
 class Edge {
 
     /**
-     * Denotes a normal control flow graph edge.
+     * Denotes a normal control flow consume edge.
      */
     static final int NORMAL = 0;
 
     /**
-     * Denotes a control flow graph edge corresponding to an exception handler.
+     * Denotes a control flow consume edge corresponding to an exception handler.
      * More precisely any {@link Edge} whose {@link #info} is strictly positive
      * corresponds to an exception handler. The actual value of {@link #info} is
      * the index, in the {@link ClassWriter} type table, of the exception that
@@ -51,13 +51,13 @@ class Edge {
     static final int EXCEPTION = 0x7FFFFFFF;
 
     /**
-     * Information about this control flow graph edge. If
+     * Information about this control flow consume edge. If
      * {@link ClassWriter#COMPUTE_MAXS} is used this field is the (relative)
      * stack size in the basic block from which this edge originates. This size
      * is equal to the stack size at the "jump" instruction to which this edge
      * corresponds, relatively to the stack size at the beginning of the
      * originating basic block. If {@link ClassWriter#COMPUTE_FRAMES} is used,
-     * this field is the kind of this control flow graph edge (i.e. NORMAL or
+     * this field is the kind of this control flow consume edge (i.e. NORMAL or
      * EXCEPTION).
      */
     int info;

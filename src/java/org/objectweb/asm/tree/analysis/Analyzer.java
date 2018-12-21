@@ -425,9 +425,9 @@ public class Analyzer<V extends org.objectweb.asm.tree.analysis.Value> implement
     }
 
     /**
-     * Creates a control flow graph edge. The default implementation of this
+     * Creates a control flow consume edge. The default implementation of this
      * method does nothing. It can be overriden in order to construct the
-     * control flow graph of a method (this method is called by the
+     * control flow consume of a method (this method is called by the
      * {@link #analyze analyze} method during its visit of the method's code).
      *
      * @param insn
@@ -439,9 +439,9 @@ public class Analyzer<V extends org.objectweb.asm.tree.analysis.Value> implement
     }
 
     /**
-     * Creates a control flow graph edge corresponding to an exception handler.
+     * Creates a control flow consume edge corresponding to an exception handler.
      * The default implementation of this method does nothing. It can be
-     * overridden in order to construct the control flow graph of a method (this
+     * overridden in order to construct the control flow consume of a method (this
      * method is called by the {@link #analyze analyze} method during its visit
      * of the method's code).
      *
@@ -459,11 +459,11 @@ public class Analyzer<V extends org.objectweb.asm.tree.analysis.Value> implement
     }
 
     /**
-     * Creates a control flow graph edge corresponding to an exception handler.
+     * Creates a control flow consume edge corresponding to an exception handler.
      * The default implementation of this method delegates to
      * {@link #newControlFlowExceptionEdge(int, int)
      * newControlFlowExceptionEdge(int, int)}. It can be overridden in order to
-     * construct the control flow graph of a method (this method is called by
+     * construct the control flow consume of a method (this method is called by
      * the {@link #analyze analyze} method during its visit of the method's
      * code).
      *

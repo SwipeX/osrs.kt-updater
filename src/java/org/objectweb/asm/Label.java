@@ -43,7 +43,7 @@ public class Label {
     /**
      * Indicates if this label is only used for debug attributes. Such a label
      * is not the start of a basic block, the target of a jump instruction, or
-     * an exception handler. It can be safely ignored in control flow graph
+     * an exception handler. It can be safely ignored in control flow consume
      * analysis algorithms (for optimization purposes).
      */
     static final int DEBUG = 1;
@@ -163,13 +163,13 @@ public class Label {
     // ------------------------------------------------------------------------
 
     /*
-     * Fields for the control flow and data flow graph analysis algorithms (used
+     * Fields for the control flow and data flow consume analysis algorithms (used
      * to compute the maximum stack size or the stack map frames). A control
-     * flow graph contains one node per "basic block", and one edge per "jump"
+     * flow consume contains one node per "basic block", and one edge per "jump"
      * from one basic block to another. Each node (i.e., each basic block) is
      * represented by the Label object that corresponds to the first instruction
      * of this basic block. Each node also stores the list of its successors in
-     * the graph, as a linked list of Edge objects.
+     * the consume, as a linked list of Edge objects.
      *
      * The control flow analysis algorithms used to compute the maximum stack
      * size or the stack map frames are similar and use two steps. The first
@@ -229,7 +229,7 @@ public class Label {
     Label successor;
 
     /**
-     * The successors of this node in the control flow graph. These successors
+     * The successors of this node in the control flow consume. These successors
      * are stored in a linked list of {@link org.objectweb.asm.Edge Edge} objects, linked to each
      * other by their {@link org.objectweb.asm.Edge#next} field.
      */
@@ -481,7 +481,7 @@ public class Label {
     /**
      * Finds the basic blocks that belong to a given subroutine, and marks these
      * blocks as belonging to this subroutine. This method follows the control
-     * flow graph to find all the blocks that are reachable from the current
+     * flow consume to find all the blocks that are reachable from the current
      * block WITHOUT following any JSR target.
      *
      * @param JSR
