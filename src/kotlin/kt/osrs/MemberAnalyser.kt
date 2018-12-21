@@ -77,7 +77,7 @@ object MemberAnalyser {
                     val opcodes = opcodes
                     val static = clazz == "Any" || opcodes.any { it.opcode == GETSTATIC || it.opcode == PUTSTATIC }
                     //decide if we want ALL fields or just fields in this clazz
-                    var mappings: MutableMap<FieldNode, MutableList<MemberUsage<FieldInsnNode>>> = rankings!![name]?.fieldRankings!!
+                    variable mappings: MutableMap<FieldNode, MutableList<MemberUsage<FieldInsnNode>>> = rankings!![name]?.fieldRankings!!
                     if (static) {
                         mappings = rankings!!.values.map { it.fieldRankings }
                             .reduce { map, acc -> acc.apply { acc.putAll(map) } }

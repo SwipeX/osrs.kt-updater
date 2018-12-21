@@ -10,7 +10,7 @@ import org.objectweb.asm.tree.VarInsnNode
 class VariableNode(tree: NodeTree, insn: AbstractInsnNode, collapsed: Int, producing: Int) :
     kt.osrs.analysis.tree.node.AbstractNode(tree, insn, collapsed, producing) {
 
-    fun `var`(): Int {
+    fun variable(): Int {
         return (insn() as VarInsnNode).`var`
     }
 }
