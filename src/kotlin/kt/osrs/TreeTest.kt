@@ -5,7 +5,6 @@ import kt.osrs.analysis.tree.flow.BlockVisitor
 import kt.osrs.analysis.tree.flow.FlowVisitor
 import kt.osrs.analysis.tree.flow.graph.FlowGraph
 import kt.osrs.analysis.tree.node.FieldMemberNode
-import kt.osrs.analysis.tree.node.VariableNode
 import kt.osrs.event.Stopwatch
 import org.objectweb.asm.Opcodes.*
 import org.objectweb.asm.commons.util.JarArchive
@@ -26,6 +25,8 @@ fun main(args: Array<String>) {
             graph?.forEach {
                 playerActions.visit(it)
                 exchangeItemID.visit(it)
+                exchangeItemPrice.visit(it)
+                exchangeItemQuantity.visit(it)
                 charAnimation.visit(it)
             }
         }
@@ -50,14 +51,30 @@ val exchangeItemID = object : BlockVisitor() {
     override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
         block.tree().accept(object : NodeVisitor() {
             override fun visitField(fmn: FieldMemberNode) {
-                if (fmn.opcode() == PUTFIELD && fmn.owner().equals("c") && fmn.desc().equals("I")) { //check against {ExchangeOffer} and type
-                    val leaf = fmn.leaf(ILOAD) ?: return
-                    val vn = leaf as VariableNode
-                    when (vn.variable()) {
-                        3 -> println("Found exchange.itemID $fmn")
-                        4 -> println("Found exchange.price $fmn")
-                        5 -> println("Found exchange.quantity $fmn")
-                    }
+                if (fmn.opcode() == PUTFIELD && fmn.owner().equals("c") && fmn.desc().equals("I") && fmn.leafVariable(ILOAD,3)) { //check against {ExchangeOffer} and type
+                    println("Found exchange.itemID $fmn")
+                }
+            }
+        })
+    }
+}
+val exchangeItemPrice = object : BlockVisitor() {
+    override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
+        block.tree().accept(object : NodeVisitor() {
+            override fun visitField(fmn: FieldMemberNode) {
+                if (fmn.opcode() == PUTFIELD && fmn.owner().equals("c") && fmn.desc().equals("I") && fmn.leafVariable(ILOAD,4)) { //check against {ExchangeOffer} and type
+                    println("Found exchange.price $fmn")
+                }
+            }
+        })
+    }
+}
+val exchangeItemQuantity = object : BlockVisitor() {
+    override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
+        block.tree().accept(object : NodeVisitor() {
+            override fun visitField(fmn: FieldMemberNode) {
+                if (fmn.opcode() == PUTFIELD && fmn.owner().equals("c") && fmn.desc().equals("I") && fmn.leafVariable(ILOAD,5)) { //check against {ExchangeOffer} and type
+                    println("Found exchange.quantity $fmn")
                 }
             }
         })

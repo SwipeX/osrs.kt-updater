@@ -404,6 +404,17 @@ open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractI
         return node
     }
 
+    fun adjacent(opcode: Int): AbstractNode? {
+        val parent = parent()
+        parent?.let {
+            val children = parent.children(opcode)
+            children?.let{ list ->
+                return list[0]
+            }
+        }
+        return null
+    }
+
     fun hasChild(opcode: Int): Boolean {
         return first(opcode) != null
     }

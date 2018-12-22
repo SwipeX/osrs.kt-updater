@@ -9,7 +9,7 @@ import org.objectweb.asm.tree.FieldInsnNode
  * @author Tyler Sedlar
  */
 class FieldMemberNode(tree: NodeTree, insn: AbstractInsnNode, collapsed: Int, producing: Int) :
-    kt.osrs.analysis.tree.node.ReferenceNode(tree, insn, collapsed, producing) {
+        kt.osrs.analysis.tree.node.ReferenceNode(tree, insn, collapsed, producing) {
 
     fun fin(): FieldInsnNode {
         return insn() as FieldInsnNode
@@ -21,5 +21,10 @@ class FieldMemberNode(tree: NodeTree, insn: AbstractInsnNode, collapsed: Int, pr
 
     fun putting(): Boolean {
         return opcode() == Opcodes.PUTFIELD || opcode() == Opcodes.PUTSTATIC
+    }
+
+    fun leafVariable(opcode: Int, variable: Int): Boolean {
+        val child = leaf(opcode)
+        return child != null && (child as VariableNode).variable() == variable
     }
 }
