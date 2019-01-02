@@ -3,13 +3,9 @@ package kt.osrs.analysis.tree
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 
-open class Tree<E : Tree<E>> : CopyOnWriteArrayList<E> {
+open class Tree<E : Tree<E>> : CopyOnWriteArrayList<E>() {
 
     protected var parent: Tree<E>? = null
-
-    constructor() : super() {}
-
-    constructor(collection: Collection<E>) : super(collection) {}
 
     fun addFirst(e: E) {
         val list = ArrayList<E>()
@@ -85,5 +81,17 @@ open class Tree<E : Tree<E>> : CopyOnWriteArrayList<E> {
             hashCode = 31 * hashCode + (e?.hashCode() ?: 0)
         }
         return hashCode
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+        if (!super.equals(other)) return false
+
+        other as Tree<*>
+
+        if (parent != other.parent) return false
+
+        return true
     }
 }
