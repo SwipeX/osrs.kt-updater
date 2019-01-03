@@ -4,6 +4,6 @@ import org.objectweb.asm.Opcodes
 
 fun test() {
     TreePattern {
-        opcodes = arrayOf(Opcodes.GETFIELD, Opcodes.AALOAD)
+        opcodes = mutableListOf(Opcodes.ASTORE, Opcodes.INVOKEVIRTUAL, Opcodes.INVOKEVIRTUAL, Opcodes.INVOKEVIRTUAL, Opcodes.INVOKEVIRTUAL, Opcodes.AALOAD, Opcodes.GETFIELD)
     }
 }
