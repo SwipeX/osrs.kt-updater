@@ -2,7 +2,7 @@ package kt.osrs.analysis.tree.dsl
 
 class TreePattern(init: TreePattern.() -> Unit) {
     //list of opcodes going down the tree
-    var opcodes: MutableList<Int> = mutableListOf()
+    val opcodes: MutableList<Int> = mutableListOf()
     //-1 will indicate the last index, anything else will
     var opcodeIndex = -1
     //for leaf element this will be opcode/var
@@ -11,4 +11,6 @@ class TreePattern(init: TreePattern.() -> Unit) {
     init {
         apply(init)
     }
+
+    fun opcodes(vararg opcodes: Int) = this.opcodes.addAll(opcodes.toTypedArray())
 }

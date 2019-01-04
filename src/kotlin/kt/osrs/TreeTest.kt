@@ -28,6 +28,8 @@ fun main(args: Array<String>) {
                 exchangeItemPrice.visit(it)
                 exchangeItemQuantity.visit(it)
                 charAnimation.visit(it)
+                players.visit(it)
+                npcs.visit(it)
             }
         }
     }
@@ -40,6 +42,23 @@ val playerActions = object : BlockVisitor() {
             println("Found player.Actions @ $node")
     }
 }
+
+val players = object : BlockVisitor() {
+    override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
+        val node = block.tree().leaf(IF_ACMPEQ, AALOAD, GETSTATIC)
+        if (node != null && (node as FieldMemberNode).desc() == "[Lbk;")
+            println("Found players @ $node")
+    }
+}
+
+val npcs = object : BlockVisitor() {
+    override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
+        val node = block.tree().leaf(IFNULL, AALOAD, GETSTATIC)
+        if (node != null && (node as FieldMemberNode).desc() == "[Lbo;")
+            println("Found npcs @ $node")
+    }
+}
+
 val charAnimation = object : BlockVisitor() {
     override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
         val node = block.tree().leaf(IF_ICMPLE, IALOAD, GETFIELD, INVOKESTATIC, GETFIELD)
