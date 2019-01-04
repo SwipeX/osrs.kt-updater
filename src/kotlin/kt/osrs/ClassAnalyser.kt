@@ -79,7 +79,7 @@ object ClassAnalyser {
             MemberAnalyser.identify(identity, identity.foundName)
             log("$name $color[${identity.foundName}]$reset [Index: ${identifiers.firstOrNull { it.identity == identity }?.executeIndex}]")
             identity.members.filter { it.foundName.isNotEmpty() }.forEach {
-                log("\t$color|... $reset${it.name} $red[${it.foundName}]$reset")
+                log("\t$color|... $reset${it.name} $red[${it.foundOwnerName}.${it.foundName}]$reset")
             }
            //log("...............................")
         }

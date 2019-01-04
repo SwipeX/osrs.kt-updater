@@ -19,5 +19,13 @@ class Client : Identifiable() {
                 opcodes(IFNULL, AALOAD, GETSTATIC)
             }
         }
+        memberIdentity {
+            name = "getPlayers"
+            desc = "[L{Player};"
+            treePattern {
+                static = true
+                opcodes(IF_ACMPEQ, AALOAD, GETSTATIC)
+            }
+        }
     }
 }

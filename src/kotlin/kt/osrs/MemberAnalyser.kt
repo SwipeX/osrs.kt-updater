@@ -22,7 +22,7 @@ object MemberAnalyser {
                                 object : BlockVisitor() {
                                     override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
                                         if (opcodes.size == 1) {
-                                            //We are only searching for one get/put
+                                            //We are only searching for one get/put...hopefully?
                                             block.tree().accept(object : NodeVisitor() {
                                                 override fun visitField(node: FieldMemberNode) {
                                                     if (node.desc() == interpolate(memberIdentity.desc!!) && (!static && node.owner() == name)) {
@@ -40,10 +40,10 @@ object MemberAnalyser {
                                         } else {
                                             //search for tree
                                             val node = block.tree().leaf(*opcodes.toIntArray())
-                                            //TODO opcode index
+                                            //TODO opcode index -- scale up parent 'n' times
                                             if (node != null && node is FieldMemberNode) {
                                                 //check that the desc/owner matches
-                                                if (node.desc() == interpolate(memberIdentity.desc!!) && (!static && node.owner() == name)) {
+                                                if (node.desc() == interpolate(memberIdentity.desc!!) && (!static || node.owner() == name)) {
                                                     //If leaf var exists, return if it fails
                                                     if (leafElement.first != -1 && leafElement.second != -1) {
                                                         if (!node.leafVariable(leafElement.first, leafElement.second)) {
