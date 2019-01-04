@@ -216,7 +216,7 @@ public class Assembly {
 
     public static String toString(AbstractInsnNode insn) {
         if (insn == null) {
-            return "null";
+            return "Tree:";
         }
         int op = insn.opcode();
         if (op == -1) {

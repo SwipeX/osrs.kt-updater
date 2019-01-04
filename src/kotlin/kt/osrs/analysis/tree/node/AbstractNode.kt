@@ -388,7 +388,14 @@ open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractI
         return children
     }
 
+    fun leafVariable(opcode: Int, variable: Int): Boolean {
+        val child = leaf(opcode)
+        return child != null && (child as VariableNode).variable() == variable
+    }
+
     fun leaf(vararg opcodes: Int): AbstractNode? {
+        if (opcodes.size == 1 && insn?.opcode() == opcodes[0])
+            return this
         val nodes = branch(*opcodes)
         return if (nodes != null) nodes[0] else null
     }
@@ -408,7 +415,7 @@ open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractI
         val parent = parent()
         parent?.let {
             val children = parent.children(opcode)
-            children?.let{ list ->
+            children?.let { list ->
                 return list[0]
             }
         }

@@ -61,9 +61,11 @@ val npcs = object : BlockVisitor() {
 
 val charAnimation = object : BlockVisitor() {
     override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
-        val node = block.tree().leaf(IF_ICMPLE, IALOAD, GETFIELD, INVOKESTATIC, GETFIELD)
-        if (node != null)
-            println("Found character.Animation @ $node")
+        val node = block.tree().leaf(-1,PUTFIELD)
+        if(node == null)return
+        val fmn = node as FieldMemberNode
+        if (node != null && fmn.owner().equals("c") && fmn.desc().equals("I") && fmn.leafVariable(ILOAD,3))
+            println("Found THJE THING @ $node")
     }
 }
 val exchangeItemID = object : BlockVisitor() {

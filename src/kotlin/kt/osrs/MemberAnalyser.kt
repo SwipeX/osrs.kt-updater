@@ -3,6 +3,7 @@ package kt.osrs
 import kt.osrs.ClassAnalyser.classes
 import kt.osrs.ClassAnalyser.graphs
 import kt.osrs.analysis.ClassIdentity
+import kt.osrs.analysis.tree.NodeVisitor
 import kt.osrs.analysis.tree.flow.BlockVisitor
 import kt.osrs.analysis.tree.node.FieldMemberNode
 
@@ -20,20 +21,38 @@ object MemberAnalyser {
                             graph?.forEach {
                                 object : BlockVisitor() {
                                     override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
-                                        //search for tree
-                                        val node = block.tree().leaf(*opcodes.toIntArray())
-                                        //TODO opcode index
-                                        if (node != null && node is FieldMemberNode) {
-                                            //check that the desc/owner matches
-                                            if (node.desc() == interpolate(memberIdentity.desc!!) && (!static && node.owner() == name)) {
-                                                //If leaf var exists, return if it fails
-                                                if (leafElement.first != -1 && leafElement.second != -1) {
-                                                    if (!node.leafVariable(leafElement.first, leafElement.second)) {
-                                                        return
+                                        if (opcodes.size == 1) {
+                                            //We are only searching for one get/put
+                                            block.tree().accept(object : NodeVisitor() {
+                                                override fun visitField(node: FieldMemberNode) {
+                                                    if (node.desc() == interpolate(memberIdentity.desc!!) && (!static && node.owner() == name)) {
+                                                        //If leaf var exists, return if it fails
+                                                        if (leafElement.first != -1 && leafElement.second != -1) {
+                                                            if (!node.leafVariable(leafElement.first, leafElement.second)) {
+                                                                return
+                                                            }
+                                                        }
+                                                        memberIdentity.foundName = node.name()!!
+                                                        memberIdentity.foundOwnerName = node.owner()!!
                                                     }
                                                 }
-                                                memberIdentity.foundName = node.name()!!
-                                                memberIdentity.foundOwnerName = node.owner()!!
+                                            })
+                                        } else {
+                                            //search for tree
+                                            val node = block.tree().leaf(*opcodes.toIntArray())
+                                            //TODO opcode index
+                                            if (node != null && node is FieldMemberNode) {
+                                                //check that the desc/owner matches
+                                                if (node.desc() == interpolate(memberIdentity.desc!!) && (!static && node.owner() == name)) {
+                                                    //If leaf var exists, return if it fails
+                                                    if (leafElement.first != -1 && leafElement.second != -1) {
+                                                        if (!node.leafVariable(leafElement.first, leafElement.second)) {
+                                                            return
+                                                        }
+                                                    }
+                                                    memberIdentity.foundName = node.name()!!
+                                                    memberIdentity.foundOwnerName = node.owner()!!
+                                                }
                                             }
                                         }
                                     }

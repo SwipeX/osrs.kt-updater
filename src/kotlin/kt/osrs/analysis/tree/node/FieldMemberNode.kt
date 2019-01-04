@@ -23,8 +23,4 @@ class FieldMemberNode(tree: NodeTree, insn: AbstractInsnNode, collapsed: Int, pr
         return opcode() == Opcodes.PUTFIELD || opcode() == Opcodes.PUTSTATIC
     }
 
-    fun leafVariable(opcode: Int, variable: Int): Boolean {
-        val child = leaf(opcode)
-        return child != null && (child as VariableNode).variable() == variable
-    }
 }
