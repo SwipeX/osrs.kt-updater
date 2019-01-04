@@ -1,10 +1,7 @@
 package kt.osrs.analysis.model
 
 import kt.osrs.analysis.classIdentity
-import kt.osrs.analysis.rank.usage.GETFIELD
-import kt.osrs.analysis.rank.usage.GETSTATIC
-import kt.osrs.analysis.rank.usage.PUTFIELD
-import kt.osrs.analysis.rank.usage.PUTSTATIC
+import org.objectweb.asm.Opcodes.*
 
 class Client : Identifiable() {
     override val executeIndex: Int = 1
@@ -14,13 +11,13 @@ class Client : Identifiable() {
             superName = "{RSApplet}"
         }
 
-
-        /*
-        TODO ADD STATIC MEMBER SEARCH
         memberIdentity {
-            name = "getMenuActions"
-            desc = "[Ljava/lang/String;"
-            static = true
-        }*/
+            name = "getNpcs"
+            desc = "[L{Npc};"
+            treePattern {
+                static = true
+                opcodes(IFNULL, AALOAD, GETSTATIC)
+            }
+        }
     }
 }

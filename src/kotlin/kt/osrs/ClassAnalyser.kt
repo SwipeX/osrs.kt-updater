@@ -4,10 +4,14 @@ import kt.osrs.analysis.ClassIdentity
 import kt.osrs.analysis.model.Identifiable
 import kt.osrs.analysis.rank.ClassRanking
 import kt.osrs.analysis.rank.build
+import kt.osrs.analysis.tree.flow.FlowVisitor
+import kt.osrs.analysis.tree.flow.graph.FlowGraph
 import kt.osrs.event.Event
+import kt.osrs.event.Stopwatch
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.commons.util.JarArchive
 import org.objectweb.asm.tree.ClassNode
+import org.objectweb.asm.tree.MethodNode
 import org.reflections.Reflections
 import java.io.File
 
@@ -15,6 +19,7 @@ object ClassAnalyser {
     val deob = "./jars/deob.jar"
     val archive = JarArchive(File(deob))
     val classes: MutableMap<String, ClassNode>? = archive.build()
+    val graphs = flowGraphs(classes!!)
     val identifiers: List<Identifiable> = getAllFromReflection()
     var rankings: MutableMap<String, ClassRanking>? = build(classes!!.values)
     val identified = Event<IdentifiedEvent>()
@@ -64,20 +69,6 @@ object ClassAnalyser {
                 values.isEmpty() -> log("*** No values were applicable for id: ${id.name}")
             }
         }
-//these should be found using rankings -- delete later
-//        //pair static fields to their descriptors -- can reside anywhere in the jar
-//        log("Identifying static members")
-//        val staticFields = classes!!.values.flatMap { it.fields }.filter { (it.access and Opcodes.ACC_STATIC) == Opcodes.ACC_STATIC }
-//        val descriptorMap = staticMembers().members.map { interpolate(it.desc!!) to it }.toMap()
-//        val mappings = staticFields.filter { descriptorMap.containsKey(it.desc) }.map { it to descriptorMap[it.desc] }.toMap()
-//        mappings.forEach { f, m ->
-//            m!!.apply {
-//                m.foundOwnerName = f.owner.name
-//                m.foundName = f.name
-//                log("^-- ${m.name} [${m.foundOwnerName}.${m.foundName}]")
-//            }
-//        }
-
 
         // Identify members.
         val color = "\u001B[36;1m"
@@ -109,6 +100,27 @@ object ClassAnalyser {
         rawClasses[name] = id
         id.foundName = name
         //log("${id.name} [$name] [Index: ${identifiers.firstOrNull { it.identity == id }?.executeIndex}]")
+    }
+    /**
+     * Constructs a Mapping of ClassNode to a Mapping of MethodNode to FlowGraph
+     */
+    fun flowGraphs(map: MutableMap<String, ClassNode>): MutableMap<ClassNode, MutableMap<MethodNode, FlowGraph>> {
+        val graphs = mutableMapOf<ClassNode, MutableMap<MethodNode, FlowGraph>>()
+        println("Graph generation: ${Stopwatch.elapse {
+            map.values.forEach { classNode ->
+                val temp = mutableMapOf<MethodNode, FlowGraph>()
+                val visitor = FlowVisitor()
+                classNode.methods.forEach {
+                    visitor.accept(it)
+                    val graph = FlowGraph(it)
+                    graph.forEach { it.tree() }
+                    graph.consume(visitor.graph)
+                    temp[it] = graph
+                }
+                graphs[classNode] = temp
+            }
+        }} ms")
+        return graphs
     }
 
     data class IdentifiedEvent(val id: ClassIdentity, val foundClass: String)

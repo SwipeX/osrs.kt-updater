@@ -1,6 +1,7 @@
 package kt.osrs.analysis.tree.dsl
 
 class TreePattern(init: TreePattern.() -> Unit) {
+    var static = false
     //list of opcodes going down the tree
     val opcodes: MutableList<Int> = mutableListOf()
     //-1 will indicate the last index, anything else will
