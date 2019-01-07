@@ -27,5 +27,21 @@ class Client : Identifiable() {
                 opcodes(IF_ACMPEQ, AALOAD, GETSTATIC)
             }
         }
+        memberIdentity {
+            name = "cameraX"
+            desc = "I"
+            treePattern {
+                static = true
+            opcodes(IASTORE, IALOAD, GETSTATIC)
+            }
+        }
+        memberIdentity {
+            name = "baseY"
+            desc = "I"
+            treePattern {
+                static = true
+                opcodes(ISTORE, ISUB, IADD, ISUB, IMUL, GETSTATIC)
+            }
+        }
     }
 }

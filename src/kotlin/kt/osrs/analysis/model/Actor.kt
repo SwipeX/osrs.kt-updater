@@ -11,6 +11,7 @@ class Actor : Identifiable() {
             superName = "{RenderableNode}"
             "Ljava/lang/String;" occurs 1
         }
+
         memberIdentity {
             name = "animation"
             desc = "I"
@@ -20,13 +21,23 @@ class Actor : Identifiable() {
         memberIdentity {
             name = "interactingIndex"
             desc = "I"
-
+            treePattern { opcodes(ASTORE, AALOAD, ISUB, GETFIELD) }
         }
-
         memberIdentity {
-            name = "animationDelay"
+            name = "localX"
             desc = "I"
-
+            treePattern {
+                opcodes(PUTFIELD)
+                leafElement = Pair(ILOAD, 3)
+            }
+        }
+        memberIdentity {
+            name = "localY"
+            desc = "I"
+            treePattern {
+                opcodes(PUTFIELD)
+                leafElement = Pair(ILOAD, 4)
+            }
         }
     }
 }
