@@ -7,8 +7,12 @@ class NodeSequence(init: NodeSequence.() -> Unit) {
         apply(init)
     }
 
+    fun tree(node: TreeNode.() -> Unit) {
+        tree = TreeNode().apply(node)
+    }
+
     fun build(node: TreeNode) = { tree = node }
-    
+
     fun vn(): TreeNode {
         return TreeNode(NodeType.VariableNode)
     }

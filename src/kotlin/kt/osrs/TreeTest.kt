@@ -18,6 +18,9 @@ fun main(args: Array<String>) {
     val archive = JarArchive(File(deob))
     val classes: MutableMap<String, ClassNode>? = archive.build()
     val graphs = flowGraphs(classes!!)
+
+
+
     classes.values.forEach { classNode ->
         val graphz = graphs[classNode]
         classNode.methods.forEach { methodNode ->
