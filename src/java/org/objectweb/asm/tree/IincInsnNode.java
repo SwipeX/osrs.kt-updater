@@ -42,12 +42,12 @@ import java.util.Map;
 public class IincInsnNode extends AbstractInsnNode {
 
     /**
-     * Index of the local number to be incremented.
+     * Index of the local value to be incremented.
      */
     public int var;
 
     /**
-     * Amount to increment the local number by.
+     * Amount to increment the local value by.
      */
     public int incr;
 
@@ -55,9 +55,9 @@ public class IincInsnNode extends AbstractInsnNode {
      * Constructs a new {@link IincInsnNode}.
      *
      * @param var
-     *            index of the local number to be incremented.
+     *            index of the local value to be incremented.
      * @param incr
-     *            increment amount to increment the local number by.
+     *            increment amount to increment the local value by.
      */
     public IincInsnNode(final int var, final int incr) {
         super(Opcodes.IINC);

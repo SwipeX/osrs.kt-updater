@@ -34,7 +34,7 @@ import org.objectweb.asm.MethodVisitor;
 import java.util.Map;
 
 /**
- * A node that represents a line number declaration. These nodes are pseudo
+ * A node that represents a line value declaration. These nodes are pseudo
  * instruction nodes in order to be inserted in an instruction list.
  *
  * @author Eric Bruneton
@@ -42,13 +42,13 @@ import java.util.Map;
 public class LineNumberNode extends AbstractInsnNode {
 
     /**
-     * A line number. This number refers to the source file from which the class
+     * A line value. This value refers to the source file from which the class
      * was compiled.
      */
     public int line;
 
     /**
-     * The first instruction corresponding to this line number.
+     * The first instruction corresponding to this line value.
      */
     public org.objectweb.asm.tree.LabelNode start;
 
@@ -56,10 +56,10 @@ public class LineNumberNode extends AbstractInsnNode {
      * Constructs a new {@link LineNumberNode}.
      *
      * @param line
-     *            a line number. This number refers to the source file from
+     *            a line value. This value refers to the source file from
      *            which the class was compiled.
      * @param start
-     *            the first instruction corresponding to this line number.
+     *            the first instruction corresponding to this line value.
      */
     public LineNumberNode(final int line, final org.objectweb.asm.tree.LabelNode start) {
         super(-1);

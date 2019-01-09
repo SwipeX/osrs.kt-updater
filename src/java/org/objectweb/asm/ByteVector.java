@@ -43,7 +43,7 @@ public class ByteVector {
     byte[] data;
 
     /**
-     * Actual number of bytes in this vector.
+     * Actual value of bytes in this vector.
      */
     int length;
 
@@ -308,7 +308,7 @@ public class ByteVector {
      * @param off
      *            index of the fist byte of b that must be copied.
      * @param len
-     *            number of bytes of b that must be copied.
+     *            value of bytes of b that must be copied.
      * @return this byte vector.
      */
     public ByteVector putByteArray(final byte[] b, final int off, final int len) {
@@ -326,7 +326,7 @@ public class ByteVector {
      * Enlarge this byte vector so that it can receive n more bytes.
      *
      * @param size
-     *            number of additional bytes that this byte vector should be
+     *            value of additional bytes that this byte vector should be
      *            able to receive.
      */
     private void enlarge(final int size) {

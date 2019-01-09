@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * A symbolic execution stack frame. A stack frame contains a set of local
- * number slots, and an operand stack. Warning: long and double values are
+ * value slots, and an operand stack. Warning: long and double values are
  * represented by <i>two</i> slots in local variables, and by <i>one</i> slot in
  * the operand stack.
  *
@@ -59,19 +59,19 @@ public class Frame<V extends Value> {
     private V[] values;
 
     /**
-     * The number of local variables of this frame.
+     * The value of local variables of this frame.
      */
     private int locals;
 
     /**
-     * The number of elements in the operand stack.
+     * The value of elements in the operand stack.
      */
     private int top;
 
     /**
      * Constructs a new frame with the given size.
      *
-     * @param nLocals the maximum number of local variables of the frame.
+     * @param nLocals the maximum value of local variables of the frame.
      * @param nStack  the maximum stack size of the frame.
      */
     public Frame(final int nLocals, final int nStack) {
@@ -113,9 +113,9 @@ public class Frame<V extends Value> {
     }
 
     /**
-     * Returns the maximum number of local variables of this frame.
+     * Returns the maximum value of local variables of this frame.
      *
-     * @return the maximum number of local variables of this frame.
+     * @return the maximum value of local variables of this frame.
      */
     public int getLocals() {
         return locals;
@@ -131,41 +131,41 @@ public class Frame<V extends Value> {
     }
 
     /**
-     * Returns the value of the given local number.
+     * Returns the value of the given local value.
      *
-     * @param i a local number index.
-     * @return the value of the given local number.
-     * @throws IndexOutOfBoundsException if the number does not exist.
+     * @param i a local value index.
+     * @return the value of the given local value.
+     * @throws IndexOutOfBoundsException if the value does not exist.
      */
     public V getLocal(final int i) throws IndexOutOfBoundsException {
         if (i >= locals) {
             throw new IndexOutOfBoundsException(
-                    "Trying to access an inexistant local number");
+                    "Trying to access an inexistant local value");
         }
         return values[i];
     }
 
     /**
-     * Sets the value of the given local number.
+     * Sets the value of the given local value.
      *
-     * @param i     a local number index.
-     * @param value the new value of this local number.
-     * @throws IndexOutOfBoundsException if the number does not exist.
+     * @param i     a local value index.
+     * @param value the new value of this local value.
+     * @throws IndexOutOfBoundsException if the value does not exist.
      */
     public void setLocal(final int i, final V value)
             throws IndexOutOfBoundsException {
         if (i >= locals) {
             throw new IndexOutOfBoundsException(
-                    "Trying to access an inexistant local number " + i);
+                    "Trying to access an inexistant local value " + i);
         }
         values[i] = value;
     }
 
     /**
-     * Returns the number of values in the operand stack of this frame. Long and
+     * Returns the value of values in the operand stack of this frame. Long and
      * double values are treated as single values.
      *
-     * @return the number of values in the operand stack of this frame.
+     * @return the value of values in the operand stack of this frame.
      */
     public int getStackSize() {
         return top;

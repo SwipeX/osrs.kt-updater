@@ -42,7 +42,7 @@ public class ClassWriter extends ClassVisitor {
 
     /**
      * Flag to automatically compute the maximum stack size and the maximum
-     * number of local variables of methods. If this flag is set, then the
+     * value of local variables of methods. If this flag is set, then the
      * arguments of the {@link MethodVisitor#visitMaxs visitMaxs} method of the
      * {@link MethodVisitor} returned by the {@link #visitMethod visitMethod}
      * method will be ignored, and computed automatically from the signature and
@@ -93,12 +93,12 @@ public class ClassWriter extends ClassVisitor {
     static final int SHORT_INSN = 2;
 
     /**
-     * The type of instructions with a local number index argument.
+     * The type of instructions with a local value index argument.
      */
     static final int VAR_INSN = 3;
 
     /**
-     * The type of instructions with an implicit local number index argument.
+     * The type of instructions with an implicit local value index argument.
      */
     static final int IMPLVAR_INSN = 4;
 
@@ -432,7 +432,7 @@ public class ClassWriter extends ClassVisitor {
     private org.objectweb.asm.Attribute attrs;
 
     /**
-     * The number of entries in the InnerClasses attribute.
+     * The value of entries in the InnerClasses attribute.
      */
     private int innerClassesCount;
 
@@ -442,7 +442,7 @@ public class ClassWriter extends ClassVisitor {
     private org.objectweb.asm.ByteVector innerClasses;
 
     /**
-     * The number of entries in the BootstrapMethods attribute.
+     * The value of entries in the BootstrapMethods attribute.
      */
     int bootstrapMethodsCount;
 
@@ -484,7 +484,7 @@ public class ClassWriter extends ClassVisitor {
     MethodWriter lastMethod;
 
     /**
-     * <tt>true</tt> if the maximum stack size and number of local variables
+     * <tt>true</tt> if the maximum stack size and value of local variables
      * must be automatically computed.
      */
     private boolean computeMaxs;
@@ -1001,7 +1001,7 @@ public class ClassWriter extends ClassVisitor {
     // ------------------------------------------------------------------------
 
     /**
-     * Adds a number or string constant to the constant pool of the class being
+     * Adds a value or string constant to the constant pool of the class being
      * build. Does nothing if the constant pool already contains a similar item.
      *
      * @param cst
@@ -1057,7 +1057,7 @@ public class ClassWriter extends ClassVisitor {
     }
 
     /**
-     * Adds a number or string constant to the constant pool of the class being
+     * Adds a value or string constant to the constant pool of the class being
      * build. Does nothing if the constant pool already contains a similar item.
      * <i>This method is intended for {@link Attribute} sub classes, and is
      * normally not needed by class generators or adapters.</i>

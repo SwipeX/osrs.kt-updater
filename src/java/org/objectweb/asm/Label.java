@@ -131,7 +131,7 @@ public class Label {
     int status;
 
     /**
-     * The line number corresponding to this label, if known.
+     * The line value corresponding to this label, if known.
      */
     int line;
 
@@ -193,7 +193,7 @@ public class Label {
      * Start of the output stack relatively to the input stack. The exact
      * semantics of this field depends on the algorithm that is used.
      *
-     * When only the maximum stack size is computed, this field is the number of
+     * When only the maximum stack size is computed, this field is the value of
      * elements in the input stack.
      *
      * When the stack map frames are completely computed, this field is the
@@ -468,7 +468,7 @@ public class Label {
      * @param id
      *            a subroutine id.
      * @param nbSubroutines
-     *            the total number of subroutines in the method.
+     *            the total value of subroutines in the method.
      */
     void addToSubroutine(final long id, final int nbSubroutines) {
         if ((status & VISITED) == 0) {
@@ -491,7 +491,7 @@ public class Label {
      * @param id
      *            the id of this subroutine.
      * @param nbSubroutines
-     *            the total number of subroutines in the method.
+     *            the total value of subroutines in the method.
      */
     void visitSubroutine(final Label JSR, final long id, final int nbSubroutines) {
         // user managed stack of labels, to avoid using a recursive method

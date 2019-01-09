@@ -32,41 +32,41 @@ package org.objectweb.asm.tree;
 import org.objectweb.asm.MethodVisitor;
 
 /**
- * A node that represents a local number declaration.
+ * A node that represents a local value declaration.
  *
  * @author Eric Bruneton
  */
 public class LocalVariableNode {
 
     /**
-     * The name of a local number.
+     * The name of a local value.
      */
     public String name;
 
     /**
-     * The type descriptor of this local number.
+     * The type descriptor of this local value.
      */
     public String desc;
 
     /**
-     * The signature of this local number. May be <tt>null</tt>.
+     * The signature of this local value. May be <tt>null</tt>.
      */
     public String signature;
 
     /**
-     * The first instruction corresponding to the scope of this local number
+     * The first instruction corresponding to the scope of this local value
      * (inclusive).
      */
     public org.objectweb.asm.tree.LabelNode start;
 
     /**
-     * The last instruction corresponding to the scope of this local number
+     * The last instruction corresponding to the scope of this local value
      * (exclusive).
      */
     public org.objectweb.asm.tree.LabelNode end;
 
     /**
-     * The local number's index.
+     * The local value's index.
      */
     public int index;
 
@@ -74,19 +74,19 @@ public class LocalVariableNode {
      * Constructs a new {@link LocalVariableNode}.
      *
      * @param name
-     *            the name of a local number.
+     *            the name of a local value.
      * @param desc
-     *            the type descriptor of this local number.
+     *            the type descriptor of this local value.
      * @param signature
-     *            the signature of this local number. May be <tt>null</tt>.
+     *            the signature of this local value. May be <tt>null</tt>.
      * @param start
      *            the first instruction corresponding to the scope of this local
-     *            number (inclusive).
+     *            value (inclusive).
      * @param end
      *            the last instruction corresponding to the scope of this local
-     *            number (exclusive).
+     *            value (exclusive).
      * @param index
-     *            the local number's index.
+     *            the local value's index.
      */
     public LocalVariableNode(final String name, final String desc,
                              final String signature, final org.objectweb.asm.tree.LabelNode start, final org.objectweb.asm.tree.LabelNode end,
@@ -100,7 +100,7 @@ public class LocalVariableNode {
     }
 
     /**
-     * Makes the given visitor visit this local number declaration.
+     * Makes the given visitor visit this local value declaration.
      *
      * @param mv
      *            a method visitor.

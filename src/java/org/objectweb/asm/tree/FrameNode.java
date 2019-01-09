@@ -91,14 +91,14 @@ public class FrameNode extends AbstractInsnNode {
      *            {@link Opcodes#F_SAME} or {@link Opcodes#F_APPEND},
      *            {@link Opcodes#F_SAME1} for compressed frames.
      * @param nLocal
-     *            number of local variables of this stack map frame.
+     *            value of local variables of this stack map frame.
      * @param local
      *            the types of the local variables of this stack map frame.
      *            Elements of this list can be Integer, String or LabelNode
      *            objects (for primitive, reference and uninitialized types
      *            respectively - see {@link MethodVisitor}).
      * @param nStack
-     *            number of operand stack elements of this stack map frame.
+     *            value of operand stack elements of this stack map frame.
      * @param stack
      *            the types of the operand stack elements of this stack map
      *            frame. Elements of this list can be Integer, String or

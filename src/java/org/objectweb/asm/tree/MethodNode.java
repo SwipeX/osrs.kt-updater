@@ -172,7 +172,7 @@ public class MethodNode extends MethodVisitor {
     public int maxStack;
 
     /**
-     * The maximum number of local variables of this method.
+     * The maximum value of local variables of this method.
      */
     public int maxLocals;
 
@@ -185,7 +185,7 @@ public class MethodNode extends MethodVisitor {
     public List<LocalVariableNode> localVariables;
 
     /**
-     * The visible local number annotations of this method. This list is a
+     * The visible local value annotations of this method. This list is a
      * list of {@link LocalVariableAnnotationNode} objects. May be <tt>null</tt>
      *
      * @associates objectweb.org.objectweb.org.objectweb.LocalVariableAnnotationNode
@@ -193,7 +193,7 @@ public class MethodNode extends MethodVisitor {
     public List<LocalVariableAnnotationNode> visibleLocalVariableAnnotations;
 
     /**
-     * The invisible local number annotations of this method. This list is a
+     * The invisible local value annotations of this method. This list is a
      * list of {@link LocalVariableAnnotationNode} objects. May be <tt>null</tt>
      *
      * @associates objectweb.org.objectweb.org.objectweb.LocalVariableAnnotationNode
@@ -698,7 +698,7 @@ public class MethodNode extends MethodVisitor {
             for (i = 0; i < n; ++i) {
                 localVariables.get(i).accept(mv);
             }
-            // visits local number annotations
+            // visits local value annotations
             n = visibleLocalVariableAnnotations == null ? 0
                     : visibleLocalVariableAnnotations.size();
             for (i = 0; i < n; ++i) {

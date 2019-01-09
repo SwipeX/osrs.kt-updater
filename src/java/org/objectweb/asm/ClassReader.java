@@ -1252,7 +1252,7 @@ public class ClassReader {
         while (u < codeEnd) {
             int offset = u - codeStart;
 
-            // visits the label and line number for this offset, if any
+            // visits the label and line value for this offset, if any
             org.objectweb.asm.Label l = labels[offset];
             if (l != null) {
                 mv.visitLabel(l);
@@ -1454,7 +1454,7 @@ public class ClassReader {
             mv.visitLabel(labels[codeLength]);
         }
 
-        // visits the local number tables
+        // visits the local value tables
         if ((context.flags & SKIP_DEBUG) == 0 && varTable != 0) {
             int[] typeTable = null;
             if (varTypeTable != 0) {
@@ -1699,9 +1699,9 @@ public class ClassReader {
         int i;
         int n = b[v++] & 0xFF;
         // workaround for a bug in javac (javac compiler generates a parameter
-        // annotation array whose size is equal to the number of parameters in
+        // annotation array whose size is equal to the value of parameters in
         // the Java source file, while it should generate an array whose size is
-        // equal to the number of parameters in the method descriptor - which
+        // equal to the value of parameters in the method descriptor - which
         // includes the synthetic parameters added by the compiler). This work-
         // around supposes that the synthetic parameters are the first ones.
         int synthetics = org.objectweb.asm.Type.getArgumentTypes(context.desc).length - n;
@@ -1728,7 +1728,7 @@ public class ClassReader {
      * Reads the values of an annotation and makes the given visitor visit them.
      *
      * @param v     the start offset in {@link #b b} of the values to be read
-     *              (including the unsigned short that gives the number of
+     *              (including the unsigned short that gives the value of
      *              values).
      * @param buf   buffer to be used to call {@link #readUTF8 readUTF8},
      *              {@link #readClass(int, char[]) readClass} or {@link #readConst
@@ -2198,9 +2198,9 @@ public class ClassReader {
     // ------------------------------------------------------------------------
 
     /**
-     * Returns the number of constant pool items in {@link #b b}.
+     * Returns the value of constant pool items in {@link #b b}.
      *
-     * @return the number of constant pool items in {@link #b b}.
+     * @return the value of constant pool items in {@link #b b}.
      */
     public int getItemCount() {
         return items.length;

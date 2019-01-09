@@ -34,9 +34,9 @@ import org.objectweb.asm.MethodVisitor;
 import java.util.Map;
 
 /**
- * A node that represents a local number instruction. A local number
+ * A node that represents a local value instruction. A local value
  * instruction is an instruction that loads or stores the value of a local
- * number.
+ * value.
  *
  * @author Eric Bruneton
  */
@@ -44,7 +44,7 @@ public class VarInsnNode extends AbstractInsnNode {
 
     /**
      * The operand of this instruction. This operand is the index of a local
-     * number.
+     * value.
      */
     public int var;
 
@@ -52,12 +52,12 @@ public class VarInsnNode extends AbstractInsnNode {
      * Constructs a new {@link VarInsnNode}.
      *
      * @param opcode
-     *            the opcode of the local number instruction to be
+     *            the opcode of the local value instruction to be
      *            constructed. This opcode must be ILOAD, LLOAD, FLOAD, DLOAD,
      *            ALOAD, ISTORE, LSTORE, FSTORE, DSTORE, ASTORE or RET.
      * @param var
      *            the operand of the instruction to be constructed. This operand
-     *            is the index of a local number.
+     *            is the index of a local value.
      */
     public VarInsnNode(final int opcode, final int var) {
         super(opcode);

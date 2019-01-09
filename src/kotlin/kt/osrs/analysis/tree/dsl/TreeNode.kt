@@ -7,15 +7,15 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
     //optional parameters
     var desc: String? = null
     var owner: String? = null
-    var number: Int = -1
+    var value: Any? = null
 
     fun children(vararg chn: TreeNode) {
         children.addAll(chn)
     }
 
-    fun desc(value: String?): TreeNode = apply { desc = value }
-    fun owner(value: String?): TreeNode = apply { owner = value }
-    fun number(value: Int): TreeNode = apply { number = value }
+    fun desc(v: String?): TreeNode = apply { desc = v }
+    fun owner(v: String?): TreeNode = apply { owner = v }
+    fun value(v: Any?): TreeNode = apply { value = v }
     //Sets the next node equal to the parameter, also ensures the parents are equal
     infix operator fun plus(node: TreeNode) = node.apply {
         next = this

@@ -39,7 +39,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A node that represents a type annotation on a local or resource number.
+ * A node that represents a type annotation on a local or resource value.
  *
  * @author Eric Bruneton
  */
@@ -47,19 +47,19 @@ public class LocalVariableAnnotationNode extends org.objectweb.asm.tree.TypeAnno
 
     /**
      * The fist instructions corresponding to the continuous ranges that make
-     * the scope of this local number (inclusive). Must not be <tt>null</tt>.
+     * the scope of this local value (inclusive). Must not be <tt>null</tt>.
      */
     public List<org.objectweb.asm.tree.LabelNode> start;
 
     /**
      * The last instructions corresponding to the continuous ranges that make
-     * the scope of this local number (exclusive). This list must have the
+     * the scope of this local value (exclusive). This list must have the
      * same size as the 'start' list. Must not be <tt>null</tt>.
      */
     public List<org.objectweb.asm.tree.LabelNode> end;
 
     /**
-     * The local number's index in each range. This list must have the same
+     * The local value's index in each range. This list must have the same
      * size as the 'start' list. Must not be <tt>null</tt>.
      */
     public List<Integer> index;
@@ -71,13 +71,13 @@ public class LocalVariableAnnotationNode extends org.objectweb.asm.tree.TypeAnno
      *            a reference to the annotated type. See {@link TypeReference}.
      * @param start
      *            the fist instructions corresponding to the continuous ranges
-     *            that make the scope of this local number (inclusive).
+     *            that make the scope of this local value (inclusive).
      * @param end
      *            the last instructions corresponding to the continuous ranges
-     *            that make the scope of this local number (exclusive). This
+     *            that make the scope of this local value (exclusive). This
      *            array must have the same size as the 'start' array.
      * @param index
-     *            the local number's index in each range. This array must have
+     *            the local value's index in each range. This array must have
      *            the same size as the 'start' array.
      * @param typePath
      *            the path to the annotated type argument, wildcard bound, array

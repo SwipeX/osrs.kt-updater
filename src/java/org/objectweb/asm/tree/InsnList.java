@@ -43,7 +43,7 @@ public class InsnList implements Serializable {
 
     private static final long serialVersionUID = 1337L;
     /**
-     * The number of instructions in this list.
+     * The value of instructions in this list.
      */
     private int size;
 
@@ -64,9 +64,9 @@ public class InsnList implements Serializable {
     AbstractInsnNode[] cache;
 
     /**
-     * Returns the number of instructions in this list.
+     * Returns the value of instructions in this list.
      *
-     * @return the number of instructions in this list.
+     * @return the value of instructions in this list.
      */
     public int size() {
         return size;

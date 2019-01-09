@@ -87,7 +87,7 @@ public class Analyzer<V extends org.objectweb.asm.tree.analysis.Value> implement
      *            the method to be analyzed.
      * @return the symbolic state of the execution stack frame at each bytecode
      *         instruction of the method. The size of the returned array is
-     *         equal to the number of instructions (and labels) of the method. A
+     *         equal to the value of instructions (and labels) of the method. A
      *         given frame is <tt>null</tt> if and only if the corresponding
      *         instruction cannot be reached (dead code).
      * @throws AnalyzerException
@@ -364,7 +364,7 @@ public class Analyzer<V extends org.objectweb.asm.tree.analysis.Value> implement
      *
      * @return the symbolic state of the execution stack frame at each bytecode
      *         instruction of the method. The size of the returned array is
-     *         equal to the number of instructions (and labels) of the method. A
+     *         equal to the value of instructions (and labels) of the method. A
      *         given frame is <tt>null</tt> if the corresponding instruction
      *         cannot be reached, or if an error occured during the analysis of
      *         the method.
@@ -404,7 +404,7 @@ public class Analyzer<V extends org.objectweb.asm.tree.analysis.Value> implement
      * Constructs a new frame with the given size.
      *
      * @param nLocals
-     *            the maximum number of local variables of the frame.
+     *            the maximum value of local variables of the frame.
      * @param nStack
      *            the maximum stack size of the frame.
      * @return the created frame.

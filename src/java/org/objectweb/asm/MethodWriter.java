@@ -48,13 +48,13 @@ class MethodWriter extends MethodVisitor {
 
     /**
      * Frame has exactly the same locals as the previous stack map frame and
-     * number of stack items is zero.
+     * value of stack items is zero.
      */
     static final int SAME_FRAME = 0; // to 63 (0-3f)
 
     /**
      * Frame has exactly the same locals as the previous stack map frame and
-     * number of stack items is 1
+     * value of stack items is 1
      */
     static final int SAME_LOCALS_1_STACK_ITEM_FRAME = 64; // to 127 (40-7f)
 
@@ -65,7 +65,7 @@ class MethodWriter extends MethodVisitor {
 
     /**
      * Frame has exactly the same locals as the previous stack map frame and
-     * number of stack items is 1. Offset is bigger then 63;
+     * value of stack items is 1. Offset is bigger then 63;
      */
     static final int SAME_LOCALS_1_STACK_ITEM_FRAME_EXTENDED = 247; // f7
 
@@ -78,7 +78,7 @@ class MethodWriter extends MethodVisitor {
 
     /**
      * Frame has exactly the same locals as the previous stack map frame and
-     * number of stack items is zero. Offset is bigger then 63;
+     * value of stack items is zero. Offset is bigger then 63;
      */
     static final int SAME_FRAME_EXTENDED = 251; // fb
 
@@ -96,7 +96,7 @@ class MethodWriter extends MethodVisitor {
 
     /**
      * Indicates that the stack map frames must be recomputed from scratch. In
-     * this case the maximum stack size and number of local variables is also
+     * this case the maximum stack size and value of local variables is also
      * recomputed from scratch.
      *
      * @see #compute
@@ -104,7 +104,7 @@ class MethodWriter extends MethodVisitor {
     private static final int FRAMES = 0;
 
     /**
-     * Indicates that the maximum stack size and number of local variables must
+     * Indicates that the maximum stack size and value of local variables must
      * be automatically computed.
      *
      * @see #compute
@@ -161,7 +161,7 @@ class MethodWriter extends MethodVisitor {
     /**
      * If not zero, indicates that the code of this method must be copied from
      * the ClassReader associated to this writer in <code>cw.cr</code>. More
-     * precisely, this field gives the number of bytes to copied from
+     * precisely, this field gives the value of bytes to copied from
      * <code>cw.cr.b</code>.
      */
     int classReaderLength;
@@ -218,7 +218,7 @@ class MethodWriter extends MethodVisitor {
     private AnnotationWriter[] ipanns;
 
     /**
-     * The number of synthetic parameters of this method.
+     * The value of synthetic parameters of this method.
      */
     private int synthetics;
 
@@ -238,7 +238,7 @@ class MethodWriter extends MethodVisitor {
     private int maxStack;
 
     /**
-     * Maximum number of local variables for this method.
+     * Maximum value of local variables for this method.
      */
     private int maxLocals;
 
@@ -273,7 +273,7 @@ class MethodWriter extends MethodVisitor {
     /**
      * The current stack map frame. The first element contains the offset of the
      * instruction to which the frame corresponds, the second element is the
-     * number of locals and the third one is the number of stack elements. The
+     * value of locals and the third one is the value of stack elements. The
      * local variables start at index 3 and are followed by the operand stack
      * values. In summary frame[0] = offset, frame[1] = nLocal, frame[2] =
      * nStack, frame[3] = nLocal. All types are encoded as integers, with the
@@ -362,7 +362,7 @@ class MethodWriter extends MethodVisitor {
     private boolean resize;
 
     /**
-     * The number of subroutines in this method.
+     * The value of subroutines in this method.
      */
     private int subroutines;
 
@@ -445,7 +445,7 @@ class MethodWriter extends MethodVisitor {
      *            the internal names of the method's exceptions. May be
      *            <tt>null</tt>.
      * @param computeMaxs
-     *            <tt>true</tt> if the maximum stack size and number of local
+     *            <tt>true</tt> if the maximum stack size and value of local
      *            variables must be automatically computed.
      * @param computeFrames
      *            <tt>true</tt> if the stack map tables must be recomputed from
@@ -1693,7 +1693,7 @@ class MethodWriter extends MethodVisitor {
         int nStack = 0;
         int[] locals = f.inputLocals;
         int[] stacks = f.inputStack;
-        // computes the number of locals (ignores TOP types that are just after
+        // computes the value of locals (ignores TOP types that are just after
         // a LONG or a DOUBLE, and all trailing TOP types)
         for (i = 0; i < locals.length; ++i) {
             t = locals[i];
@@ -1803,9 +1803,9 @@ class MethodWriter extends MethodVisitor {
      * @param offset
      *            the offset of the instruction to which the frame corresponds.
      * @param nLocal
-     *            the number of local variables in the frame.
+     *            the value of local variables in the frame.
      * @param nStack
-     *            the number of stack elements in the frame.
+     *            the value of stack elements in the frame.
      * @return the index of the next element to be written in this frame.
      */
     private int startFrame(final int offset, final int nLocal, final int nStack) {
@@ -2368,7 +2368,7 @@ class MethodWriter extends MethodVisitor {
          * 
          * Parse the code to find the jump instructions whose offset will need
          * more than 2 bytes to be stored (the future offset is computed from
-         * the current offset and from the number of bytes that will be inserted
+         * the current offset and from the value of bytes that will be inserted
          * or removed between the source and target instructions). For each such
          * instruction, adds an entry in (a copy of) the indexes and sizes
          * arrays (if this has not already been done in a previous iteration!).
@@ -2379,7 +2379,7 @@ class MethodWriter extends MethodVisitor {
          * In fact the real algorithm is complicated by the fact that the size
          * of TABLESWITCH and LOOKUPSWITCH instructions depends on their
          * position in the bytecode (because of padding). In order to ensure the
-         * convergence of the algorithm, the number of bytes to be added or
+         * convergence of the algorithm, the value of bytes to be added or
          * removed from these instructions is over estimated during the previous
          * loop, and computed exactly only after the loop is finished (this
          * requires another pass to parse the bytecode of the method).
@@ -2445,9 +2445,9 @@ class MethodWriter extends MethodVisitor {
                         break;
                     case org.objectweb.asm.ClassWriter.TABL_INSN:
                         if (state == 1) {
-                            // true number of bytes to be added (or removed)
-                            // from this instruction = (future number of padding
-                            // bytes - current number of padding byte) -
+                            // true value of bytes to be added (or removed)
+                            // from this instruction = (future value of padding
+                            // bytes - current value of padding byte) -
                             // previously over estimated variation =
                             // = ((3 - newOffset%4) - (3 - u%4)) - u%4
                             // = (-newOffset%4 + u%4) - u%4
@@ -2455,8 +2455,8 @@ class MethodWriter extends MethodVisitor {
                             newOffset = getNewOffset(allIndexes, allSizes, 0, u);
                             insert = -(newOffset & 3);
                         } else if (!resize[u]) {
-                            // over estimation of the number of bytes to be
-                            // added to this instruction = 3 - current number
+                            // over estimation of the value of bytes to be
+                            // added to this instruction = 3 - current value
                             // of padding bytes = 3 - (3 - u%4) = u%4 = u & 3
                             insert = u & 3;
                             resize[u] = true;
@@ -2726,7 +2726,7 @@ class MethodWriter extends MethodVisitor {
             h = h.next;
         }
         // updates the instructions addresses in the
-        // local number and line number tables
+        // local value and line value tables
         for (i = 0; i < 2; ++i) {
             ByteVector bv = i == 0 ? localVar : localVarType;
             if (bv != null) {
@@ -2840,7 +2840,7 @@ class MethodWriter extends MethodVisitor {
      *            byte, plus one (or, in other words, by the index of the
      *            <i>first</i> byte of the <i>next</i> instruction).
      * @param sizes
-     *            the number of bytes to be <i>added</i> to the above
+     *            the value of bytes to be <i>added</i> to the above
      *            instructions. More precisely, for each i < <tt>len</tt>,
      *            <tt>sizes</tt>[i] bytes will be added at the end of the
      *            instruction designated by <tt>indexes</tt>[i] or, if
@@ -2878,7 +2878,7 @@ class MethodWriter extends MethodVisitor {
      *            byte, plus one (or, in other words, by the index of the
      *            <i>first</i> byte of the <i>next</i> instruction).
      * @param sizes
-     *            the number of bytes to be <i>added</i> to the above
+     *            the value of bytes to be <i>added</i> to the above
      *            instructions. More precisely, for each i < <tt>len</tt>,
      *            <tt>sizes</tt>[i] bytes will be added at the end of the
      *            instruction designated by <tt>indexes</tt>[i] or, if

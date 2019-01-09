@@ -151,7 +151,7 @@ public class Attribute {
      *            code attribute, or -1 if this attribute is not a code
      *            attribute.
      * @param maxLocals
-     *            the maximum number of local variables of the method
+     *            the maximum value of local variables of the method
      *            corresponding to this code attribute, or -1 if this attribute
      *            is not a code attribute.
      * @return the byte array form of this attribute.
@@ -198,7 +198,7 @@ public class Attribute {
      *            code attributes, or -1 if these attributes are not code
      *            attributes.
      * @param maxLocals
-     *            the maximum number of local variables of the method
+     *            the maximum value of local variables of the method
      *            corresponding to these code attributes, or -1 if these
      *            attributes are not code attributes.
      * @return the size of all the attributes in this attribute list. This size
@@ -236,7 +236,7 @@ public class Attribute {
      *            code attributes, or -1 if these attributes are not code
      *            attributes.
      * @param maxLocals
-     *            the maximum number of local variables of the method
+     *            the maximum value of local variables of the method
      *            corresponding to these code attributes, or -1 if these
      *            attributes are not code attributes.
      * @param out

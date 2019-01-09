@@ -43,7 +43,7 @@ final class AnnotationWriter extends AnnotationVisitor {
     private final org.objectweb.asm.ClassWriter cw;
 
     /**
-     * The number of values in this annotation.
+     * The value of values in this annotation.
      */
     private int size;
 
@@ -56,19 +56,19 @@ final class AnnotationWriter extends AnnotationVisitor {
 
     /**
      * The annotation values in bytecode form. This byte vector only contains
-     * the values themselves, i.e. the number of values must be stored as a
+     * the values themselves, i.e. the value of values must be stored as a
      * unsigned short just before these bytes.
      */
     private final org.objectweb.asm.ByteVector bv;
 
     /**
-     * The byte vector to be used to store the number of values of this
+     * The byte vector to be used to store the value of values of this
      * annotation. See {@link #bv}.
      */
     private final org.objectweb.asm.ByteVector parent;
 
     /**
-     * Where the number of values of this annotation must be stored in
+     * Where the value of values of this annotation must be stored in
      * {@link #parent}.
      */
     private final int offset;
@@ -97,9 +97,9 @@ final class AnnotationWriter extends AnnotationVisitor {
      * @param bv
      *            where the annotation values must be stored.
      * @param parent
-     *            where the number of annotation values must be stored.
+     *            where the value of annotation values must be stored.
      * @param offset
-     *            where in <tt>parent</tt> the number of annotation values must
+     *            where in <tt>parent</tt> the value of annotation values must
      *            be stored.
      */
     AnnotationWriter(final org.objectweb.asm.ClassWriter cw, final boolean named,

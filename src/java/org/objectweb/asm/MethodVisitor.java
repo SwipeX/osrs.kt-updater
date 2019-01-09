@@ -254,8 +254,8 @@ public abstract class MethodVisitor {
     }
 
     /**
-     * Visits a local number instruction. A local number instruction is an
-     * instruction that loads or stores the value of a local number.
+     * Visits a local value instruction. A local value instruction is an
+     * instruction that loads or stores the value of a local value.
      */
     public void visitVarInsn(VarInsnNode vin) {
         if (mv != null) {
@@ -427,7 +427,7 @@ public abstract class MethodVisitor {
     }
 
     /**
-     * Visits a local number declaration.
+     * Visits a local value declaration.
      *
      * @throws IllegalArgumentException
      *             if one of the labels has not already been visited by this
@@ -440,7 +440,7 @@ public abstract class MethodVisitor {
     }
 
     /**
-     * Visits an annotation on a local number type.
+     * Visits an annotation on a local value type.
      *
      * @param visible
      *            <tt>true</tt> if the annotation is visible at runtime.
@@ -455,7 +455,7 @@ public abstract class MethodVisitor {
     }
 
     /**
-     * Visits a line number declaration.
+     * Visits a line value declaration.
      *
      * @throws IllegalArgumentException
      *             if <tt>start</tt> has not already been visited by this
@@ -468,13 +468,13 @@ public abstract class MethodVisitor {
     }
 
     /**
-     * Visits the maximum stack size and the maximum number of local variables
+     * Visits the maximum stack size and the maximum value of local variables
      * of the method.
      *
      * @param maxStack
      *            maximum stack size of the method.
      * @param maxLocals
-     *            maximum number of local variables for the method.
+     *            maximum value of local variables for the method.
      */
     public void visitMaxs(int maxStack, int maxLocals) {
         if (mv != null) {

@@ -95,20 +95,20 @@ class Context {
     int offset;
 
     /**
-     * The labels corresponding to the start of the local number ranges in the
-     * local number type annotation currently being parsed.
+     * The labels corresponding to the start of the local value ranges in the
+     * local value type annotation currently being parsed.
      */
     org.objectweb.asm.Label[] start;
 
     /**
-     * The labels corresponding to the end of the local number ranges in the
-     * local number type annotation currently being parsed.
+     * The labels corresponding to the end of the local value ranges in the
+     * local value type annotation currently being parsed.
      */
     org.objectweb.asm.Label[] end;
 
     /**
-     * The local number indices for each local number range in the local
-     * number type annotation currently being parsed.
+     * The local value indices for each local value range in the local
+     * value type annotation currently being parsed.
      */
     int[] index;
 
@@ -118,13 +118,13 @@ class Context {
     int mode;
 
     /**
-     * The number of locals in the latest stack map frame that has been parsed.
+     * The value of locals in the latest stack map frame that has been parsed.
      */
     int localCount;
 
     /**
-     * The number locals in the latest stack map frame that has been parsed,
-     * minus the number of locals in the previous frame.
+     * The value locals in the latest stack map frame that has been parsed,
+     * minus the value of locals in the previous frame.
      */
     int localDiff;
 

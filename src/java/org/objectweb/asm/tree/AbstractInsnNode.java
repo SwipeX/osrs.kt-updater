@@ -135,7 +135,7 @@ public abstract class AbstractInsnNode implements Serializable {
     /**
      * The runtime visible type annotations of this instruction. This field is
      * only used for real instructions (i.e. not for labels, frames, or line
-     * number nodes). This list is a list of {@link TypeAnnotationNode} objects.
+     * value nodes). This list is a list of {@link TypeAnnotationNode} objects.
      * May be <tt>null</tt>.
      *
      * @associates objectweb.org.objectweb.org.objectweb.TypeAnnotationNode
@@ -146,7 +146,7 @@ public abstract class AbstractInsnNode implements Serializable {
     /**
      * The runtime invisible type annotations of this instruction. This field is
      * only used for real instructions (i.e. not for labels, frames, or line
-     * number nodes). This list is a list of {@link TypeAnnotationNode} objects.
+     * value nodes). This list is a list of {@link TypeAnnotationNode} objects.
      * May be <tt>null</tt>.
      *
      * @associates objectweb.org.objectweb.org.objectweb.TypeAnnotationNode
