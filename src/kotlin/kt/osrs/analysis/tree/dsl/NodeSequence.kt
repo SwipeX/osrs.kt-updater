@@ -6,4 +6,14 @@ class NodeSequence(init: NodeSequence.() -> Unit) {
     init {
         apply(init)
     }
+
+    fun build(node: TreeNode) = { tree = node }
+    
+    fun vn(): TreeNode {
+        return TreeNode(NodeType.VariableNode)
+    }
+
+    fun fmn(): TreeNode {
+        return TreeNode(NodeType.FieldMemberNode)
+    }
 }
