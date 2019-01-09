@@ -1,7 +1,6 @@
 package kt.osrs.analysis.model
 
 import kt.osrs.analysis.classIdentity
-import org.objectweb.asm.Opcodes.*
 
 class Player : Identifiable() {
     override val executeIndex: Int = 11
@@ -17,19 +16,19 @@ class Player : Identifiable() {
         memberIdentity {
             name = "definition"
             desc = "L{PlayerDefinition};"
-            treePattern { opcodes(GETFIELD) }
+            //treePattern { opcodes(GETFIELD) }
         }
 
         memberIdentity {
             name = "actions"
             desc = "[Ljava/lang/String;"
-            treePattern { opcodes(ASTORE, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, AALOAD, GETFIELD) }
+           // treePattern { opcodes(ASTORE, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, INVOKEVIRTUAL, AALOAD, GETFIELD) }
         }
 
         memberIdentity {
             name = "nameComposite"
             desc = "L{NameComposite};"
-            treePattern { opcodes(PUTFIELD) }
+           // treePattern { opcodes(PUTFIELD) }
         }
     }
 }

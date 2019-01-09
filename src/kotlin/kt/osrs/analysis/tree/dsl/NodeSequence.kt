@@ -11,13 +11,18 @@ class NodeSequence(init: NodeSequence.() -> TreeNode) {
     fun node(opcode: Int = -1) = TreeNode(NodeType.AbstractNode, opcode)
     fun node(opcode: Int = -1, build: TreeNode.() -> Unit) = TreeNode(NodeType.AbstractNode, opcode).apply(build)
     //ArithmeticNode
-    fun ar(opcode: Int = -1) = TreeNode(NodeType.ArithmeticNode, opcode)
-    fun ar(opcode: Int = -1, build: TreeNode.() -> Unit) = TreeNode(NodeType.ArithmeticNode, opcode).apply(build)
+    fun an(opcode: Int = -1) = TreeNode(NodeType.ArithmeticNode, opcode)
+    fun an(opcode: Int = -1, build: TreeNode.() -> Unit) = TreeNode(NodeType.ArithmeticNode, opcode).apply(build)
     //ConstantNode
     fun cn(cst: Any? = null, build: TreeNode.() -> Unit) = TreeNode(NodeType.ConstantNode).value(cst).apply(build)
     fun cn(cst: Any? = null) = TreeNode(NodeType.ConstantNode).value(cst)
     fun cn(opcode: Int = -1, cst: Any? = null, build: TreeNode.() -> Unit) = TreeNode(NodeType.ConstantNode, opcode).value(cst).apply(build)
     fun cn(opcode: Int = -1, cst: Any? = null) = TreeNode(NodeType.ConstantNode, opcode).value(cst)
+    //NumberNode
+    fun nn(number: Int = -1, build: TreeNode.() -> Unit) = TreeNode(NodeType.NumberNode).value(number).apply(build)
+    fun nn(number: Int = -1) = TreeNode(NodeType.NumberNode).value(number)
+    fun nn(opcode: Int = -1, number: Int = -1, build: TreeNode.() -> Unit) = TreeNode(NodeType.NumberNode, opcode).value(number).apply(build)
+    fun nn(opcode: Int = -1, number: Int = -1) = TreeNode(NodeType.NumberNode, opcode).value(number)
     //IncNode
     fun inc(number: Int = -1, build: TreeNode.() -> Unit) = TreeNode(NodeType.IncNode).value(number).apply(build)
     fun inc(number: Int = -1) = TreeNode(NodeType.IncNode).value(number)

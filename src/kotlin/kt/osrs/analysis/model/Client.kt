@@ -1,7 +1,6 @@
 package kt.osrs.analysis.model
 
 import kt.osrs.analysis.classIdentity
-import org.objectweb.asm.Opcodes.*
 
 class Client : Identifiable() {
     override val executeIndex: Int = 1
@@ -14,34 +13,34 @@ class Client : Identifiable() {
         memberIdentity {
             name = "getNpcs"
             desc = "[L{Npc};"
-            treePattern {
-                static = true
-                opcodes(IFNULL, AALOAD, GETSTATIC)
-            }
+//            treePattern {
+//                static = true
+//                opcodes(IFNULL, AALOAD, GETSTATIC)
+//            }
         }
         memberIdentity {
             name = "getPlayers"
             desc = "[L{Player};"
-            treePattern {
-                static = true
-                opcodes(IF_ACMPEQ, AALOAD, GETSTATIC)
-            }
+//            treePattern {
+//                static = true
+//                opcodes(IF_ACMPEQ, AALOAD, GETSTATIC)
+//            }
         }
         memberIdentity {
             name = "cameraX"
             desc = "I"
-            treePattern {
-                static = true
-            opcodes(IASTORE, IALOAD, GETSTATIC)
-            }
+//            treePattern {
+//                static = true
+//            opcodes(IASTORE, IALOAD, GETSTATIC)
+//            }
         }
         memberIdentity {
             name = "baseY"
             desc = "I"
-            treePattern {
-                static = true
-                opcodes(ISTORE, ISUB, IADD, ISUB, IMUL, GETSTATIC)
-            }
+//            treePattern {
+//                static = true
+//                opcodes(ISTORE, ISUB, IADD, ISUB, IMUL, GETSTATIC)
+//            }
         }
     }
 }
