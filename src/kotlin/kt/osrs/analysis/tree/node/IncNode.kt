@@ -7,7 +7,7 @@ import org.objectweb.asm.tree.IincInsnNode
 /**
  * @author Tyler Sedlar
  */
-class IincNode(tree: NodeTree, insn: AbstractInsnNode, collapsed: Int, producing: Int) :
+class IncNode(tree: NodeTree, insn: AbstractInsnNode, collapsed: Int, producing: Int) :
     AbstractNode(tree, insn, collapsed, producing) {
 
     fun increment(): Int {

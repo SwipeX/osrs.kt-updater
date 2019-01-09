@@ -70,7 +70,7 @@ open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractI
                 }
             }
             IINC_INSN -> {
-                nv.visitIinc(this as IincNode)
+                nv.visitIinc(this as IncNode)
             }
             TABLESWITCH_INSN -> {
                 nv.visitTableSwitch(this)

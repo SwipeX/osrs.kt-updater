@@ -55,7 +55,7 @@ open class NodeVisitor : Opcodes {
         }
     }
 
-    open fun visitIinc(`in`: IincNode) {
+    open fun visitIinc(`in`: IncNode) {
         if (nv != null) {
             nv!!.visitIinc(`in`)
         }

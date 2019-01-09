@@ -95,7 +95,7 @@ object TreeBuilder {
                 ConstantNode(tree, ain, size.collapsing, size.producing)
             }
         } else return if (ain is IincInsnNode) {
-            IincNode(tree, ain, size.collapsing, size.producing)
+            IncNode(tree, ain, size.collapsing, size.producing)
         } else if (ain is TypeInsnNode) {
             TypeNode(tree, ain, size.collapsing, size.producing)
         } else {

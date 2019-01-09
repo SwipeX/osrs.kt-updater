@@ -16,7 +16,6 @@ class Actor : Identifiable() {
             name = "animation"
             desc = "I"
             treePattern { opcodes(IF_ICMPLE, IALOAD, GETFIELD, INVOKESTATIC, GETFIELD) }
-
         }
         memberIdentity {
             name = "interactingIndex"
