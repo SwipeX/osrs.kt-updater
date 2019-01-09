@@ -1,9 +1,13 @@
 package kt.osrs.analysis.tree.dsl
 
-class DslTest{
-    fun ye(){
+class DslTest {
+    fun ye() {
         NodeSequence {
-            build(fmn() + vn())
+            fmn() + vn {
+                this[fmn(), vn()]
+            } + vn() - vn {
+                fmn()
+            }
         }
     }
 }

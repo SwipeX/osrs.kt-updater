@@ -5,6 +5,10 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
     var next: TreeNode? = null
     var parent: TreeNode? = null
 
+    fun children(vararg chn: TreeNode) {
+        children.addAll(chn)
+    }
+
     //Sets the next node equal to the parameter, also ensures the parents are equal
     infix operator fun plus(node: TreeNode) = node.apply {
         next = this
@@ -12,9 +16,14 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
     }
 
     //sets the parent node, also adds as child if needed
-    infix operator fun minus(node: TreeNode) = {
-        parent = node
+    infix operator fun minus(node: TreeNode) = node.apply {
+        parent = this
         if (!node.children.contains(this)) node.children.add(this)
+    }
+
+
+    operator fun get(vararg nodes:TreeNode){
+        children.addAll(nodes)
     }
 
     //adds the node to the list of child nodes, also sets parent of node
