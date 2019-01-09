@@ -2726,7 +2726,7 @@ class MethodWriter extends MethodVisitor {
             h = h.next;
         }
         // updates the instructions addresses in the
-        // local variable and line number tables
+        // local number and line number tables
         for (i = 0; i < 2; ++i) {
             ByteVector bv = i == 0 ? localVar : localVarType;
             if (bv != null) {

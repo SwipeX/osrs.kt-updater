@@ -95,20 +95,20 @@ class Context {
     int offset;
 
     /**
-     * The labels corresponding to the start of the local variable ranges in the
-     * local variable type annotation currently being parsed.
+     * The labels corresponding to the start of the local number ranges in the
+     * local number type annotation currently being parsed.
      */
     org.objectweb.asm.Label[] start;
 
     /**
-     * The labels corresponding to the end of the local variable ranges in the
-     * local variable type annotation currently being parsed.
+     * The labels corresponding to the end of the local number ranges in the
+     * local number type annotation currently being parsed.
      */
     org.objectweb.asm.Label[] end;
 
     /**
-     * The local variable indices for each local variable range in the local
-     * variable type annotation currently being parsed.
+     * The local number indices for each local number range in the local
+     * number type annotation currently being parsed.
      */
     int[] index;
 

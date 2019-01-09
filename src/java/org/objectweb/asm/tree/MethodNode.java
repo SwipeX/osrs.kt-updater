@@ -185,7 +185,7 @@ public class MethodNode extends MethodVisitor {
     public List<LocalVariableNode> localVariables;
 
     /**
-     * The visible local variable annotations of this method. This list is a
+     * The visible local number annotations of this method. This list is a
      * list of {@link LocalVariableAnnotationNode} objects. May be <tt>null</tt>
      *
      * @associates objectweb.org.objectweb.org.objectweb.LocalVariableAnnotationNode
@@ -193,7 +193,7 @@ public class MethodNode extends MethodVisitor {
     public List<LocalVariableAnnotationNode> visibleLocalVariableAnnotations;
 
     /**
-     * The invisible local variable annotations of this method. This list is a
+     * The invisible local number annotations of this method. This list is a
      * list of {@link LocalVariableAnnotationNode} objects. May be <tt>null</tt>
      *
      * @associates objectweb.org.objectweb.org.objectweb.LocalVariableAnnotationNode
@@ -698,7 +698,7 @@ public class MethodNode extends MethodVisitor {
             for (i = 0; i < n; ++i) {
                 localVariables.get(i).accept(mv);
             }
-            // visits local variable annotations
+            // visits local number annotations
             n = visibleLocalVariableAnnotations == null ? 0
                     : visibleLocalVariableAnnotations.size();
             for (i = 0; i < n; ++i) {

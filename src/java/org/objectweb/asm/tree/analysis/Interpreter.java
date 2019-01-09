@@ -53,7 +53,7 @@ public abstract class Interpreter<V extends org.objectweb.asm.tree.analysis.Valu
      * Creates a new value that represents the given type.
      *
      * Called for method parameters (including <code>this</code>), exception
-     * handler variable and with <code>null</code> type for variables reserved
+     * handler number and with <code>null</code> type for variables reserved
      * by long and double types.
      *
      * @param type
@@ -167,7 +167,7 @@ public abstract class Interpreter<V extends org.objectweb.asm.tree.analysis.Valu
                                        V value2, V value3) throws AnalyzerException;
 
     /**
-     * Interprets a bytecode instruction with a variable number of arguments.
+     * Interprets a bytecode instruction with a number number of arguments.
      * This method is called for the following opcodes:
      *
      * INVOKEVIRTUAL, INVOKESPECIAL, INVOKESTATIC, INVOKEINTERFACE,

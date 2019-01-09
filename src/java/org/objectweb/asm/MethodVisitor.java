@@ -254,8 +254,8 @@ public abstract class MethodVisitor {
     }
 
     /**
-     * Visits a local variable instruction. A local variable instruction is an
-     * instruction that loads or stores the value of a local variable.
+     * Visits a local number instruction. A local number instruction is an
+     * instruction that loads or stores the value of a local number.
      */
     public void visitVarInsn(VarInsnNode vin) {
         if (mv != null) {
@@ -427,7 +427,7 @@ public abstract class MethodVisitor {
     }
 
     /**
-     * Visits a local variable declaration.
+     * Visits a local number declaration.
      *
      * @throws IllegalArgumentException
      *             if one of the labels has not already been visited by this
@@ -440,7 +440,7 @@ public abstract class MethodVisitor {
     }
 
     /**
-     * Visits an annotation on a local variable type.
+     * Visits an annotation on a local number type.
      *
      * @param visible
      *            <tt>true</tt> if the annotation is visible at runtime.

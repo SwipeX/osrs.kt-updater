@@ -66,9 +66,9 @@ final class Frame {
      * signed number of array dimensions (from -8 to 7). KIND is either BASE,
      * LOCAL or STACK. BASE is used for types that are not relative to the input
      * frame. LOCAL is used for types that are relative to the input local
-     * variable types. STACK is used for types that are relative to the input
+     * number types. STACK is used for types that are relative to the input
      * stack types. VALUE depends on KIND. For LOCAL types, it is an index in
-     * the input local variable types. For STACK types, it is a position
+     * the input local number types. For STACK types, it is a position
      * relatively to the top of input frame stack. For BASE types, it is either
      * one of the constants defined below, or for OBJECT and UNINITIALIZED
      * types, a tag and an index in the type table.
@@ -81,7 +81,7 @@ final class Frame {
      * forbidden - dimensions must be represented through the DIM field).
      * 
      * The LONG and DOUBLE types are always represented by using two slots (LONG
-     * + TOP or DOUBLE + TOP), for local variable types as well as in the
+     * + TOP or DOUBLE + TOP), for local number types as well as in the
      * operand stack. This is necessary to be able to simulate DUPx_y
      * instructions, whose effect would be dependent on the actual type values
      * if types were always represented by a single slot in the stack (and this
@@ -157,8 +157,8 @@ final class Frame {
     static final int UNINITIALIZED = BASE | 0x800000;
 
     /**
-     * Kind of the types that are relative to the local variable types of an
-     * input stack map frame. The value of such types is a local variable index.
+     * Kind of the types that are relative to the local number types of an
+     * input stack map frame. The value of such types is a local number index.
      */
     private static final int LOCAL = 0x2000000;
 
@@ -248,7 +248,7 @@ final class Frame {
 
         // code to generate the above string
         //
-        // int NA = 0; // not applicable (unused opcode or variable size opcode)
+        // int NA = 0; // not applicable (unused opcode or number size opcode)
         //
         // b = new int[] {
         // 0, //NOP, // visitInsn
@@ -521,11 +521,11 @@ final class Frame {
     private int[] initializations;
 
     /**
-     * Returns the output frame local variable type at the given index.
+     * Returns the output frame local number type at the given index.
      *
      * @param local
      *            the index of the local that must be returned.
-     * @return the output frame local variable type at the given index.
+     * @return the output frame local number type at the given index.
      */
     private int get(final int local) {
         if (outputLocals == null || local >= outputLocals.length) {
@@ -544,7 +544,7 @@ final class Frame {
     }
 
     /**
-     * Sets the output frame local variable type at the given index.
+     * Sets the output frame local number type at the given index.
      *
      * @param local
      *            the index of the local that must be set.
@@ -562,7 +562,7 @@ final class Frame {
             System.arraycopy(outputLocals, 0, t, 0, n);
             outputLocals = t;
         }
-        // sets the local variable
+        // sets the local number
         outputLocals[local] = type;
     }
 

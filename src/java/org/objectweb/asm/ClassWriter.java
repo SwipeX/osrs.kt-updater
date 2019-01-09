@@ -93,12 +93,12 @@ public class ClassWriter extends ClassVisitor {
     static final int SHORT_INSN = 2;
 
     /**
-     * The type of instructions with a local variable index argument.
+     * The type of instructions with a local number index argument.
      */
     static final int VAR_INSN = 3;
 
     /**
-     * The type of instructions with an implicit local variable index argument.
+     * The type of instructions with an implicit local number index argument.
      */
     static final int IMPLVAR_INSN = 4;
 

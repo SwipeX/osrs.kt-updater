@@ -38,7 +38,7 @@ import java.util.List;
 
 /**
  * A symbolic execution stack frame. A stack frame contains a set of local
- * variable slots, and an operand stack. Warning: long and double values are
+ * number slots, and an operand stack. Warning: long and double values are
  * represented by <i>two</i> slots in local variables, and by <i>one</i> slot in
  * the operand stack.
  *
@@ -131,32 +131,32 @@ public class Frame<V extends Value> {
     }
 
     /**
-     * Returns the value of the given local variable.
+     * Returns the value of the given local number.
      *
-     * @param i a local variable index.
-     * @return the value of the given local variable.
-     * @throws IndexOutOfBoundsException if the variable does not exist.
+     * @param i a local number index.
+     * @return the value of the given local number.
+     * @throws IndexOutOfBoundsException if the number does not exist.
      */
     public V getLocal(final int i) throws IndexOutOfBoundsException {
         if (i >= locals) {
             throw new IndexOutOfBoundsException(
-                    "Trying to access an inexistant local variable");
+                    "Trying to access an inexistant local number");
         }
         return values[i];
     }
 
     /**
-     * Sets the value of the given local variable.
+     * Sets the value of the given local number.
      *
-     * @param i     a local variable index.
-     * @param value the new value of this local variable.
-     * @throws IndexOutOfBoundsException if the variable does not exist.
+     * @param i     a local number index.
+     * @param value the new value of this local number.
+     * @throws IndexOutOfBoundsException if the number does not exist.
      */
     public void setLocal(final int i, final V value)
             throws IndexOutOfBoundsException {
         if (i >= locals) {
             throw new IndexOutOfBoundsException(
-                    "Trying to access an inexistant local variable " + i);
+                    "Trying to access an inexistant local number " + i);
         }
         values[i] = value;
     }

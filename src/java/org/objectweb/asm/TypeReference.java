@@ -34,7 +34,7 @@ package org.objectweb.asm;
  * A reference to a type appearing in a class, field or method declaration, or
  * on an instruction. Such a reference designates the part of the class where
  * the referenced type is appearing (e.g. an 'extends', 'implements' or 'throws'
- * clause, a 'new' instruction, a 'catch' clause, a type cast, a local variable
+ * clause, a 'new' instruction, a 'catch' clause, a type cast, a local number
  * declaration, etc).
  *
  * @author Eric Bruneton
@@ -102,13 +102,13 @@ public class TypeReference {
     public final static int THROWS = 0x17;
 
     /**
-     * The sort of type references that target the type of a local variable in a
+     * The sort of type references that target the type of a local number in a
      * method. See {@link #getSort getSort}.
      */
     public final static int LOCAL_VARIABLE = 0x40;
 
     /**
-     * The sort of type references that target the type of a resource variable
+     * The sort of type references that target the type of a resource number
      * in a method. See {@link #getSort getSort}.
      */
     public final static int RESOURCE_VARIABLE = 0x41;

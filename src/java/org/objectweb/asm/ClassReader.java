@@ -1454,7 +1454,7 @@ public class ClassReader {
             mv.visitLabel(labels[codeLength]);
         }
 
-        // visits the local variable tables
+        // visits the local number tables
         if ((context.flags & SKIP_DEBUG) == 0 && varTable != 0) {
             int[] typeTable = null;
             if (varTypeTable != 0) {
