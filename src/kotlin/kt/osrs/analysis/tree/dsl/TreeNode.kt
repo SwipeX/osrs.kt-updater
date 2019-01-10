@@ -37,6 +37,21 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
 
     //Checks for opcode, type, value, desc, owner --- where applicable or non-null
     fun accepts(node: AbstractNode): Boolean {
+
+        // YES
+        return when {
+            opcode != -1 && opcode != node.opcode()
+                    || type != NodeType.AbstractNode && type != type(node)
+                    || node is ConstantNode && value != node.cst()
+                    || node is IncNode && value != node.increment()
+                    || node is NumberNode && value != node.number()
+                    || node is VariableNode && value != node.variable()
+                    || node is ReferenceNode && desc != null
+                    && (interpolate(desc!!) != node.desc() || interpolate(owner!!) != node.desc()) -> false
+            else                                                                                   -> true
+        }
+        /*
+
         if (opcode != -1 && opcode != node.opcode()) return false
         if (type != NodeType.AbstractNode && type != type(node)) return false
         //constantNode, incNode, numberNode, variableNode
@@ -54,6 +69,7 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
             if (owner != null && interpolate(owner!!) != node.owner()) return false
         }
         return true
+        */
     }
 
     private fun type(node: AbstractNode): NodeType {
