@@ -59,13 +59,17 @@ class NodeSequence(init: NodeSequence.() -> TreeNode) {
     //FieldMemberNode
     fun fmn(owner: String? = null) = TreeNode(NodeType.FieldMemberNode).owner(owner)
 
-    fun fmn(owner: String? = null, build: TreeNode.() -> Unit) = TreeNode(NodeType.FieldMemberNode).owner(owner).apply(build)
+    fun fmn(owner: String? = null, build: TreeNode.() -> TreeNode) = TreeNode(NodeType.FieldMemberNode).owner(owner).apply {
+        children.add(build(this))
+    }
+
     fun fmn(owner: String? = null, desc: String? = null) = TreeNode(NodeType.FieldMemberNode).owner(owner).desc(desc)
-    fun fmn(owner: String? = null, desc: String? = null, build: TreeNode.() -> Unit) = TreeNode(NodeType.FieldMemberNode).owner(owner).desc(desc).apply(build)
+    fun fmn(owner: String? = null, desc: String? = null, build: TreeNode.() -> TreeNode) = TreeNode(NodeType.FieldMemberNode).owner(owner).desc(desc).apply {
+        children.add(build(this))
+    }
+
     fun fmn(opcode: Int = -1, owner: String? = null) = TreeNode(NodeType.FieldMemberNode, opcode).owner(owner)
-    fun fmn(opcode: Int = -1, owner: String? = null, build: TreeNode.() -> Unit) = TreeNode(NodeType.FieldMemberNode, opcode).owner(owner).apply(build)
     fun fmn(opcode: Int = -1, owner: String? = null, desc: String? = null) = TreeNode(NodeType.FieldMemberNode, opcode).owner(owner).desc(desc)
-    fun fmn(opcode: Int = -1, owner: String? = null, desc: String? = null, build: TreeNode.() -> Unit) = TreeNode(NodeType.FieldMemberNode, opcode).owner(owner).desc(desc).apply(build)
     //MethodMemberNode
     fun mmn(owner: String? = null) = TreeNode(NodeType.MethodMemberNode).owner(owner)
 

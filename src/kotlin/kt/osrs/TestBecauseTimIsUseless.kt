@@ -1,6 +1,7 @@
 package kt.osrs
 
 import kt.osrs.analysis.tree.dsl.NodeSequence
+import kt.osrs.analysis.tree.dsl.TreeNode
 
 
 /**
@@ -11,11 +12,30 @@ import kt.osrs.analysis.tree.dsl.NodeSequence
  */
 
 fun main(args: Array<String>) {
+
     NodeSequence {
-        vn()
+        vn {
+            fmn() and vn() // TODO FIX AND (CURRENTLY GOES FOR INFIX THIS WHICH IS THE ONE INFRONT [FMN]
+        }
     }.apply {
         tree?.apply {
-            println(opcode)
+            println(type)
+            printChildren(this)
         }
     }
 }
+
+fun printChildren(node: TreeNode, tab: Int = 0) {
+    getChildren(node).forEach {
+        var space = ""
+        for (a in 0..tab) space = space.plus("\t")
+        println(space + "| -> ${it.type}")
+        printChildren(it, tab + 1)
+    }
+}
+
+fun test(v: () -> Array<Int>) {
+
+}
+
+fun getChildren(node: TreeNode) = node.children
