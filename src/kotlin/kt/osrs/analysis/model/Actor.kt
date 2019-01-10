@@ -22,14 +22,14 @@ class Actor : Identifiable() {
             desc = "I"
             sequence = NodeSequence {
                 vn {
-                    this[vn {
-                        this[an {
-                            this[fmn()]
-                        }]
-                    }]
+                    vn {
+                        an {
+                            fmn()
+                        }
+                    }
                 }
             }
-         //   treePattern { opcodes(ASTORE, AALOAD, ISUB, GETFIELD) }
+            //   treePattern { opcodes(ASTORE, AALOAD, ISUB, GETFIELD) }
         }
         memberIdentity {
             name = "localX"

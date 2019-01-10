@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
 
     val thing = graphs[classes!!["client"]]!![classes!!["client"]!!.getMethodByName("init")]?.asSequence()?.forEach {
         val tree = it.tree()
-      //  println(tree)
+        println(tree)
     }
 
 }
