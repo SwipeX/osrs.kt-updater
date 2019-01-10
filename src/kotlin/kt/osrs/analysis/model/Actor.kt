@@ -2,6 +2,8 @@ package kt.osrs.analysis.model
 
 import kt.osrs.analysis.classIdentity
 import kt.osrs.analysis.tree.dsl.NodeSequence
+import org.objectweb.asm.Opcodes.AALOAD
+import org.objectweb.asm.Opcodes.ASTORE
 
 class Actor : Identifiable() {
     override val executeIndex = 7
@@ -21,8 +23,8 @@ class Actor : Identifiable() {
             name = "interactingIndex"
             desc = "I"
             sequence = NodeSequence {
-                vn {
-                    vn {
+                node(ASTORE) {
+                    node(AALOAD) {
                         an {
                             fmn()
                         }
