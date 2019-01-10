@@ -51,10 +51,28 @@ object MemberAnalyser {
         }
     }
 
-    private fun matches(treeNode: TreeNode, node: AbstractNode):Boolean {
-        if(treeNode.accepts(node)) {
-            treeNode.children.forEachIndexed { index, it ->  if(!matches(it, node[index]) ) return false }
+    private fun matches(treeNode: TreeNode, node: AbstractNode): Boolean {
+        if (treeNode.accepts(node)) {
+            //check for next recursively
+            if (treeNode.next != null && node.parent() != null) {
+                val idx = node.parent()!!.indexOf(node)
+                if (idx >= 0 && idx < node.size) {
+                    val next = node.parent()!![idx + 1]
+                    if (!matches(treeNode.next!!, next)) return false
+                }
+            }
+            //check for children recursively
+            if (node.size < treeNode.children.size) return false
+            treeNode.children.forEachIndexed { idx, child ->
+                if (!matches(child, node[idx])) return false
+            }
+            //check for parent recursively
+            if (treeNode.parent != null) {
+                if (node.parent() == null) return false
+                if (!matches(treeNode.parent!!, node.parent()!!)) return false
+            }
+            return true
         }
-        return true
+        return false
     }
 }

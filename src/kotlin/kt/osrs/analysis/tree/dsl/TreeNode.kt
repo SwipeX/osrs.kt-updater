@@ -16,13 +16,13 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
     fun owner(v: String?): TreeNode = apply { owner = v }
     fun value(v: Any?): TreeNode = apply { value = v }
     //Sets the next node equal to the parameter, also ensures the parents are equal
-    infix operator fun plus(node: TreeNode) = node.apply {
+    infix fun and(node: TreeNode) = node.apply {
         next = this
         parent = this@TreeNode.parent
     }
 
     //sets the parent node, also adds as child if needed
-    infix operator fun minus(node: TreeNode) = node.apply {
+    infix fun parent(node: TreeNode) = node.apply {
         parent = this
         if (!node.children.contains(this)) node.children.add(this)
     }
@@ -50,26 +50,6 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
                     && (interpolate(desc!!) != node.desc() || interpolate(owner!!) != node.desc()) -> false
             else                                                                                   -> true
         }
-        /*
-
-        if (opcode != -1 && opcode != node.opcode()) return false
-        if (type != NodeType.AbstractNode && type != type(node)) return false
-        //constantNode, incNode, numberNode, variableNode
-        if (node is ConstantNode)
-            if (value != null && value != node.cst()) return false
-        if (node is IncNode)
-            if (value != null && value != node.increment()) return false
-        if (node is NumberNode)
-            if (value != null && value != node.number()) return false
-        if (node is VariableNode)
-            if (value != null && value != node.variable()) return false
-        //referenceNode
-        if (node is ReferenceNode) {
-            if (desc != null && interpolate(desc!!) != node.desc()) return false
-            if (owner != null && interpolate(owner!!) != node.owner()) return false
-        }
-        return true
-        */
     }
 
     private fun type(node: AbstractNode): NodeType {

@@ -21,7 +21,6 @@ class Actor : Identifiable() {
             name = "interactingIndex"
             desc = "I"
             sequence = NodeSequence {
-                vn()
                 vn {
                     this[vn {
                         this[an {
