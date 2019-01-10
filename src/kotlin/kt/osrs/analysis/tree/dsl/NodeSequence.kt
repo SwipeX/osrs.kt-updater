@@ -10,9 +10,13 @@ class NodeSequence(init: NodeSequence.() -> TreeNode) {
     //AbstractNode
     fun node(opcode: Int = -1) = TreeNode(NodeType.AbstractNode, opcode)
 
-    fun node(opcode: Int = -1, build: TreeNode.() -> Unit) = TreeNode(NodeType.AbstractNode, opcode).apply(build)
+    fun node(opcode: Int = -1, build: TreeNode.() -> TreeNode) = TreeNode(NodeType.AbstractNode, opcode).apply {
+        children.add(build(this))
+    }
+
     //JumpNode
     fun jn(opcode: Int = -1) = TreeNode(NodeType.JumpNode, opcode)
+
     fun jn(opcode: Int = -1, build: TreeNode.() -> Unit) = TreeNode(NodeType.JumpNode, opcode).apply(build)
     //ArithmeticNode
     fun an(opcode: Int = -1) = TreeNode(NodeType.ArithmeticNode, opcode)
