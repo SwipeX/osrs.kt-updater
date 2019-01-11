@@ -2,6 +2,7 @@ package kt.osrs
 
 import kt.osrs.analysis.tree.dsl.NodeSequence
 import kt.osrs.analysis.tree.dsl.TreeNode
+import org.objectweb.asm.Opcodes
 
 
 /**
@@ -14,12 +15,12 @@ import kt.osrs.analysis.tree.dsl.TreeNode
 fun main(args: Array<String>) {
 
     NodeSequence {
-        vn {
-            fmn{
+        node(Opcodes.ASTORE) {
+            node(Opcodes.AALOAD) {
                 an {
-                    vn()
-                } and fmn() and vn()
-            } and vn()
+                    fmn()
+                }
+            }
         }
     }.apply {
         tree?.apply {
