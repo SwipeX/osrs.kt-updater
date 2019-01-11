@@ -11,19 +11,31 @@ object MemberAnalyser {
     fun identify(id: ClassIdentity, name: String) {
         // Searching for members
         if (id.members.isNotEmpty()) {
-            //TODO instruction kt.osrs.analysis.tree search
-            id.members.forEach { memberIdentity ->
+            for (memberIdentity in id.members) {
+                var lock = false
                 memberIdentity.sequence?.apply {
                     classes?.values?.forEach {
+                        if (lock) return
                         val graphz = graphs[it]
                         it.methods.forEach {
+                            if (lock) return
                             val graph = graphz!![it]
                             graph?.forEach {
+                                if (lock) return
                                 object : BlockVisitor() {
                                     override fun visit(block: kt.osrs.analysis.tree.flow.Block) {
                                         val treeNode = memberIdentity.sequence!!.tree!!
-                                        block.tree().filter { matches(treeNode, it) }.forEach {
-                                            println(it.tree())
+                                        block.tree().forEach { matches(treeNode, it) }.let {
+                                            val fields = treeNode.collected()
+                                            if (fields.size == 1) {
+                                                val node = fields[0]
+                                                if (node.desc() == interpolate(memberIdentity.desc!!) && (memberIdentity.static || node.owner() == name)) {
+                                                    memberIdentity.foundName = node.name()!!
+                                                    memberIdentity.foundOwnerName = node.owner()!!
+                                                    //better way to return would be nice
+                                                    lock = true
+                                                }
+                                            }
                                         }
                                     }
                                 }.visit(it)
@@ -34,29 +46,24 @@ object MemberAnalyser {
             }
         }
     }
-
-    private fun matches(treeNode: TreeNode, node: AbstractNode): Boolean {
-        if (treeNode.accepts(node)) {
-            //check for next recursively
-            if (treeNode.next != null && node.parent() != null) {
-                val idx = node.parent()!!.indexOf(node)
-                if (idx >= 0 && idx < node.size) {
-                    val next = node.parent()!![idx + 1]
-                    if (!matches(treeNode.next!!, next)) return false
-                }
-            }
-            //check for children recursively
-            if (node.size < treeNode.children.size) return false
-            treeNode.children.forEachIndexed { idx, child ->
-                if (!matches(child, node[idx])) return false
-            }
-            //check for parent recursively
-            if (treeNode.parent != null) {
-                if (node.parent() == null) return false
-                if (!matches(treeNode.parent!!, node.parent()!!)) return false
-            }
-            return true
-        }
-        return false
-    }
 }
+
+private fun matches(treeNode: TreeNode, node: AbstractNode): Boolean {
+    if (!treeNode.accepts(node)) return false
+    //node is accepted, we will match them together
+    treeNode.match = node
+    //check for children recursively
+    if (node.size < treeNode.children.size) return false
+    treeNode.children.forEach { child ->
+        if (node.none { matches(child, it) }) {
+            return false
+        }
+    }
+    //check for parent recursively
+    if (treeNode.parent != null) {
+        if (node.parent() == null) return false
+        if (!matches(treeNode.parent!!, node.parent()!!)) return false
+    }
+    return true
+}
+
