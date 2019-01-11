@@ -16,10 +16,9 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
     fun owner(v: String?): TreeNode = apply { owner = v }
     fun value(v: Any?): TreeNode = apply { value = v }
     //Sets the next node equal to the parameter, also ensures the parents are equal
-    infix fun and(node: TreeNode) = node.let {
-        println("Adding to: $type => ${parent}")
-        next = this
-        parent = it.parent
+    infix fun TreeNode.and(node: TreeNode) = node.let {
+        this@TreeNode.children.add(this)
+        it.parent = this@TreeNode
         it
     }
 

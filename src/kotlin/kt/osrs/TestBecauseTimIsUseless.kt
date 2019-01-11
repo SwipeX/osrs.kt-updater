@@ -15,7 +15,11 @@ fun main(args: Array<String>) {
 
     NodeSequence {
         vn {
-            fmn() and vn() // TODO FIX AND (CURRENTLY GOES FOR INFIX THIS WHICH IS THE ONE INFRONT [FMN]
+            fmn{
+                an {
+                    vn()
+                } and fmn() and vn()
+            } and vn()
         }
     }.apply {
         tree?.apply {
