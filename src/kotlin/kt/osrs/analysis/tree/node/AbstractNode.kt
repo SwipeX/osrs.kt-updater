@@ -435,7 +435,7 @@ open class AbstractNode(private val tree: NodeTree?, private var insn: AbstractI
             try {
                 insn()!!.javaClass.simpleName
             } catch (err: Exception) {
-                insn()!!.toString()
+                ""
             }
         }
     }
