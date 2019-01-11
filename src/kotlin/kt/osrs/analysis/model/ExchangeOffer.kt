@@ -1,6 +1,9 @@
 package kt.osrs.analysis.model
 
 import kt.osrs.analysis.classIdentity
+import kt.osrs.analysis.tree.dsl.NodeSequence
+import org.objectweb.asm.Opcodes.ALOAD
+import org.objectweb.asm.Opcodes.ILOAD
 
 class ExchangeOffer : Identifiable() {
     override val executeIndex = 39
@@ -30,10 +33,13 @@ class ExchangeOffer : Identifiable() {
         memberIdentity {
             name = "quantity"
             desc = "I"
-//            treePattern {
-//                opcodes(PUTFIELD)
-//                leafElement = Pair(ILOAD, 5)
-//            }
+            sequence = NodeSequence {
+                !fmn() {
+                    fmn() {
+                        vn(ALOAD, 0)
+                    } and vn(ILOAD, 3)
+                }
+            }
         }
         memberIdentity {
             name = "state"

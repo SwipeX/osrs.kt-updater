@@ -59,10 +59,10 @@ object MemberAnalyser {
             }
         }
         //check for parent recursively
-        if (treeNode.parent != null) {
-            if (node.parent() == null) return false
-            if (!matches(treeNode.parent!!, node.parent()!!)) return false
-        }
+//        if (treeNode.parent != null) {
+//            if (node.parent() == null) return false
+//            if (!matches(treeNode.parent!!, node.parent()!!)) return false
+//        }
         return true
     }
 }
