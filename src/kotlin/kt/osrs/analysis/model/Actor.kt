@@ -16,7 +16,17 @@ class Actor : Identifiable() {
         memberIdentity {
             name = "animation"
             desc = "I"
-            //treePattern { opcodes(IF_ICMPLE, IALOAD, GETFIELD, INVOKESTATIC, GETFIELD) }
+            sequence = NodeSequence {
+                jn {
+                    node(IALOAD) {
+                        fmn {
+                            mmn(INVOKESTATIC) {
+                                !fmn()
+                            }
+                        }
+                    }
+                }
+            }
         }
         memberIdentity {
             name = "interactingIndex"
@@ -30,23 +40,28 @@ class Actor : Identifiable() {
                     }
                 }
             }
-            //   treePattern { opcodes(ASTORE, AALOAD, ISUB, GETFIELD) }
         }
         memberIdentity {
             name = "localX"
             desc = "I"
-//            treePattern {
-//                opcodes(PUTFIELD)
-//                leafElement = Pair(ILOAD, 3)
-//            }
+            sequence = NodeSequence {
+                jn {
+                    !fmn {
+                        vn(ALOAD, 0)
+                    } and vn(ILOAD, 3)
+                }
+            }
         }
         memberIdentity {
             name = "localY"
             desc = "I"
-//            treePattern {
-//                opcodes(PUTFIELD)
-//                leafElement = Pair(ILOAD, 4)
-//            }
+            sequence = NodeSequence {
+                jn {
+                    !fmn {
+                        vn(ALOAD, 0)
+                    } and vn(ILOAD, 4)
+                }
+            }
         }
     }
 }
