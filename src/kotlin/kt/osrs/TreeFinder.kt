@@ -1,7 +1,9 @@
 package kt.osrs
 
 import kt.osrs.analysis.tree.NodeVisitor
+import kt.osrs.analysis.tree.node.AbstractNode
 import kt.osrs.analysis.tree.node.FieldMemberNode
+import org.objectweb.asm.commons.util.Assembly
 import org.objectweb.asm.commons.util.JarArchive
 import org.objectweb.asm.tree.ClassNode
 import java.io.File
@@ -30,13 +32,42 @@ fun main(args: Array<String>) {
         it.methods.forEach {
             val graph = graphz!![it]
             graph?.forEach {
-              it.tree().accept(object: NodeVisitor() {
-                  override fun visitField(fmn: FieldMemberNode) {
-                      if(fmn.owner() == owner && fmn.name() == name)
-                          println("Location for $red$owner.$name$reset found in $blue${it.owner?.handle}$reset \n ${it.tree()}")
-                  }
-              })
+                it.tree().accept(object : NodeVisitor() {
+                    override fun visitField(fmn: FieldMemberNode) {
+                        if (fmn.owner() == owner && fmn.name() == name)
+                            println("Location for $red$owner.$name$reset found in $blue${it.owner?.handle}$reset \n ${it.tree().translate(0)}")
+                    }
+                })
             }
         }
     }
+}
+
+fun AbstractNode.translate(tab: Int): String {
+    val sb = StringBuilder()
+    sb.append("${abbreviate(javaClass.simpleName)}(${Assembly.toString(insn())}) ")
+    if (size > 0) sb.append("{")
+    for (n in this) {
+        sb.append('\n')
+        for (i in 0 until tab) {
+            sb.append('\t')
+        }
+        sb.append(n.translate(tab + 1))
+    }
+    if (size > 0) {
+        sb.append("\n")
+        for (i in 0 until tab) {
+            sb.append('\t')
+        }
+        sb.append("}")
+    }
+    return sb.toString()
+}
+
+fun abbreviate(s: String): String {
+    var ret = ""
+    s.toCharArray().filter { it.isUpperCase() }.forEach { ret += it }
+    if (ret == "NT") ret = "Tree"
+    else if (ret == "AN") ret = "node"
+    return ret.toLowerCase()
 }

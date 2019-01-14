@@ -2,8 +2,7 @@ package kt.osrs.analysis.model
 
 import kt.osrs.analysis.classIdentity
 import kt.osrs.analysis.tree.dsl.NodeSequence
-import org.objectweb.asm.Opcodes.AALOAD
-import org.objectweb.asm.Opcodes.ASTORE
+import org.objectweb.asm.Opcodes.*
 
 class Actor : Identifiable() {
     override val executeIndex = 7
@@ -17,7 +16,17 @@ class Actor : Identifiable() {
         memberIdentity {
             name = "animation"
             desc = "I"
-            //treePattern { opcodes(IF_ICMPLE, IALOAD, GETFIELD, INVOKESTATIC, GETFIELD) }
+            sequence = NodeSequence {
+                jn {
+                    node(IALOAD) {
+                        fmn {
+                            mmn(INVOKESTATIC) {
+                                !fmn()
+                            }
+                        }
+                    }
+                }
+            }
         }
         memberIdentity {
             name = "interactingIndex"
@@ -25,29 +34,48 @@ class Actor : Identifiable() {
             sequence = NodeSequence {
                 node(ASTORE) {
                     node(AALOAD) {
-                        an {
-                            fmn()
+                        node(ISUB) {
+                            !fmn()
                         }
                     }
                 }
             }
-            //   treePattern { opcodes(ASTORE, AALOAD, ISUB, GETFIELD) }
         }
         memberIdentity {
             name = "localX"
             desc = "I"
-//            treePattern {
-//                opcodes(PUTFIELD)
-//                leafElement = Pair(ILOAD, 3)
-//            }
+            sequence = NodeSequence {
+                !fmn {
+                    node(IADD) {
+                        node(IDIV) {
+                            node(ISUB) {
+                                vn(ILOAD, 3)
+                                fmn {
+                                    vn(ALOAD, 0)
+                                }
+                            } and vn(ILOAD, 2)
+                        }
+                    }
+                }
+            }
         }
         memberIdentity {
             name = "localY"
             desc = "I"
-//            treePattern {
-//                opcodes(PUTFIELD)
-//                leafElement = Pair(ILOAD, 4)
-//            }
+            sequence = NodeSequence {
+                !fmn {
+                    node(IADD) {
+                        node(IDIV) {
+                            node(ISUB) {
+                                vn(ILOAD, 4)
+                                fmn {
+                                    vn(ALOAD, 0)
+                                }
+                            } and vn(ILOAD, 2)
+                        }
+                    }
+                }
+            }
         }
     }
 }

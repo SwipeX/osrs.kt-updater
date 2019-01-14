@@ -15,12 +15,10 @@ import org.objectweb.asm.Opcodes
 fun main(args: Array<String>) {
 
     NodeSequence {
-        node(Opcodes.ASTORE) {
-            node(Opcodes.AALOAD) {
-                an {
-                    fmn()
-                }
-            }
+        jn {
+            fmn {
+                vn(Opcodes.ALOAD, 0)
+            } and vn(Opcodes.ILOAD, 3)
         }
     }.apply {
         tree?.apply {

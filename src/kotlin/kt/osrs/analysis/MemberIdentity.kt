@@ -13,6 +13,7 @@ class MemberIdentity(init: MemberIdentity.() -> Unit) : Identity() {
     var desc: String? = null
     var usageDefinition: UsageDefinition? = null
     var sequence: NodeSequence? = null
+    var static = false
 
     fun usageDefinition(init: UsageDefinition.() -> Unit) = UsageDefinition(init).apply {
         usageDefinition = this
