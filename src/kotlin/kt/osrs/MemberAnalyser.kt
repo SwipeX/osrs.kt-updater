@@ -56,10 +56,10 @@ object MemberAnalyser {
             }
         }
         //check for parent recursively -- cannot do because of SOF atm
-//        if (treeNode.parent != null) {
-//            if (node.parent() == null) return false
-//            if (!matches(treeNode.parent!!, node.parent()!!)) return false
-//        }
+        if (treeNode.parent != null) {
+            if (node.parent() == null) return false
+            if (!treeNode.parent!!.accepts(node.parent()!!)) return false
+        }
         //node is accepted, we will match them together
         treeNode.match = node.insn()
         return true
