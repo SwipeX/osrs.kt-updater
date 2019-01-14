@@ -2,6 +2,8 @@ package kt.osrs.analysis.tree.dsl
 
 import kt.osrs.analysis.tree.node.*
 import kt.osrs.interpolate
+import org.objectweb.asm.tree.AbstractInsnNode
+import org.objectweb.asm.tree.FieldInsnNode
 
 class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1) {
     val children: MutableList<TreeNode> = mutableListOf()
@@ -11,7 +13,7 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
     var owner: String? = null
     var value: Any? = null
     var collect: Boolean = false
-    var match: AbstractNode? = null
+    var match: AbstractInsnNode? = null
 
     fun desc(v: String?): TreeNode = apply { desc = v }
     fun owner(v: String?): TreeNode = apply { owner = v }
@@ -35,13 +37,16 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
         nodes.forEach { it.parent = this }
     }
 
-    operator fun not() = apply { collect = true }
+    operator fun not() : TreeNode {
+        collect = true
+        return this
+    }
 
-    fun collected(): MutableList<FieldMemberNode> {
-        val nodes = mutableListOf<FieldMemberNode>()
-        fun collectAll(node: TreeNode, list: MutableList<FieldMemberNode>) {
-            if (node.collect && node.match != null && node.match is FieldMemberNode)
-                list.add(node.match as FieldMemberNode)
+    fun collected(): MutableList<FieldInsnNode> {
+        val nodes = mutableListOf<FieldInsnNode>()
+        fun collectAll(node: TreeNode, list: MutableList<FieldInsnNode>) {
+            if (node.collect && node.match != null && node.match is FieldInsnNode)
+                list.add(node.match as FieldInsnNode)
             node.children.forEach { collectAll(it, list) }
         }
         collectAll(this, nodes)
@@ -66,20 +71,6 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
                         || (owner != null && interpolate(owner!!) != node.owner()))) return false
         return true
     }
-//    fun accepts(node: AbstractNode): Boolean {
-//        return when {
-//            (opcode != -1 && opcode != node.opcode() || type != NodeType.AbstractNode && type != type(node))
-//                    && (node is ConstantNode && value != node.cst()
-//                    || node is IncNode && value != node.increment()
-//                    || node is NumberNode && value != node.number()
-//                    || node is VariableNode && value != node.variable()
-//                    || (node is ReferenceNode &&
-//                    (desc != null && (interpolate(desc!!) != node.desc()) ||
-//                            (owner != null && interpolate(owner!!) != node.owner())))
-//                    ) -> false
-//            else -> true
-//        }
-//    }
 
     private fun type(node: AbstractNode): NodeType {
         val type = NodeType.values().filter { it.name == node.javaClass.simpleName }

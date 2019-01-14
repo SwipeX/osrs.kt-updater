@@ -45,17 +45,12 @@ class Actor : Identifiable() {
             name = "localX"
             desc = "I"
             sequence = NodeSequence {
-                !fmn {
-                    node(IADD) {
-                        node(IDIV) {
-                            node(ISUB) {
-                                vn(ILOAD, 3)
-                                fmn {
-                                    vn(ALOAD, 0)
-                                }
-                            } and vn(ILOAD, 2)
-                        }
-                    }
+                mmn(null, "(III)V") {
+                    !fmn() {
+                        vn(ALOAD, 0)
+                    } and fmn() {
+                        vn(ALOAD, 0)
+                    } and vn(ILOAD, 1)
                 }
             }
         }
@@ -63,17 +58,12 @@ class Actor : Identifiable() {
             name = "localY"
             desc = "I"
             sequence = NodeSequence {
-                !fmn {
-                    node(IADD) {
-                        node(IDIV) {
-                            node(ISUB) {
-                                vn(ILOAD, 4)
-                                fmn {
-                                    vn(ALOAD, 0)
-                                }
-                            } and vn(ILOAD, 2)
-                        }
-                    }
+                mmn(null, "(III)V") {
+                    fmn() {
+                        vn(ALOAD, 0)
+                    } and !fmn() {
+                        vn(ALOAD, 0)
+                    } and vn(ILOAD, 1)
                 }
             }
         }
