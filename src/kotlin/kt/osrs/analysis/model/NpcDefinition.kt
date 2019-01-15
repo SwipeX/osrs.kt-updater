@@ -2,7 +2,8 @@ package kt.osrs.analysis.model
 
 import kt.osrs.analysis.classIdentity
 import kt.osrs.analysis.tree.dsl.NodeSequence
-import org.objectweb.asm.Opcodes.*
+import org.objectweb.asm.Opcodes.ALOAD
+import org.objectweb.asm.Opcodes.INVOKEVIRTUAL
 
 
 class NpcDefinition : Identifiable() {
@@ -33,7 +34,7 @@ class NpcDefinition : Identifiable() {
             name = "overheadIcons"
             desc = "[I"
             sequence = NodeSequence {
-                jn(IFNONNULL) {
+                jn() {
                     !fmn {
                         vn(ALOAD, 0)
                     }
