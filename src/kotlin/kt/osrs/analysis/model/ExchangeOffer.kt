@@ -2,8 +2,7 @@ package kt.osrs.analysis.model
 
 import kt.osrs.analysis.classIdentity
 import kt.osrs.analysis.tree.dsl.NodeSequence
-import org.objectweb.asm.Opcodes.ALOAD
-import org.objectweb.asm.Opcodes.ILOAD
+import org.objectweb.asm.Opcodes.*
 
 class ExchangeOffer : Identifiable() {
     override val executeIndex = 39
@@ -15,29 +14,48 @@ class ExchangeOffer : Identifiable() {
             "I" occurs 5
         }
         memberIdentity {
-            name = "itemID"
-            desc = "I"
-//            treePattern {
-//                opcodes(PUTFIELD)
-//                leafElement = Pair(ILOAD, 3)
-//            }
-        }
-        memberIdentity {
-            name = "price"
-            desc = "I"
-//            treePattern {
-//                opcodes(PUTFIELD)
-//                leafElement = Pair(ILOAD, 4)
-//            }
-        }
-        memberIdentity {
             name = "quantity"
             desc = "I"
             sequence = NodeSequence {
                 !fmn() {
                     fmn() {
                         vn(ALOAD, 0)
+                    } and vn(ILOAD, 5)
+                }
+            }
+        }
+        memberIdentity {
+            name = "price"
+            desc = "I"
+            sequence = NodeSequence {
+                !fmn() {
+                    fmn() {
+                        vn(ALOAD, 0)
+                    } and vn(ILOAD, 4)
+                }
+            }
+        }
+        memberIdentity {
+            name = "itemID"
+            desc = "I"
+            sequence = NodeSequence {
+                !fmn() {
+                    fmn() {
+                        vn(ALOAD, 0)
                     } and vn(ILOAD, 3)
+                }
+            }
+        }
+        memberIdentity {
+            name = "transferred"
+            desc = "I"
+            sequence = NodeSequence {
+                node(IASTORE) {
+                   !fmn() {
+                        node(AALOAD) {
+                            fmn(GETSTATIC) and vn()
+                        }
+                    }
                 }
             }
         }
