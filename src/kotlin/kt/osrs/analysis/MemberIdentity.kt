@@ -2,6 +2,7 @@ package kt.osrs.analysis
 
 import kt.osrs.analysis.rank.usage.UsageDefinition
 import kt.osrs.analysis.tree.dsl.NodeSequence
+import kt.osrs.analysis.tree.dsl.TreeNode
 
 class MemberIdentity(init: MemberIdentity.() -> Unit) : Identity() {
     init {
@@ -17,5 +18,9 @@ class MemberIdentity(init: MemberIdentity.() -> Unit) : Identity() {
 
     fun usageDefinition(init: UsageDefinition.() -> Unit) = UsageDefinition(init).apply {
         usageDefinition = this
+    }
+
+    fun nodeSequence(init: NodeSequence.() -> TreeNode) {
+        sequence = NodeSequence(init)
     }
 }
