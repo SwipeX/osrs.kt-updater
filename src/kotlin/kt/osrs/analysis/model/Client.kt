@@ -40,9 +40,9 @@ class Client : Identifiable() {
             desc = "I"
             static = true
             nodeSequence {
-                vn() {
-                    mmn(INVOKESTATIC, null, "(III)I") {
-                        !fmn(GETSTATIC) and fmn(GETSTATIC) and fmn(GETSTATIC)
+                fmn {
+                    an {
+                        vn() and !fmn()
                     }
                 }
             }
@@ -52,13 +52,20 @@ class Client : Identifiable() {
             desc = "I"
             static = true
             nodeSequence {
-                vn() {
+                vn {
                     mmn(INVOKESTATIC, null, "(III)I") {
                         fmn(GETSTATIC) and !fmn(GETSTATIC) and fmn(GETSTATIC)
                     }
                 }
             }
         }
+
+        memberIdentity {
+            name = "mouseX"
+            desc = "I"
+            static = true
+        }
+
         memberIdentity {
             name = "plane"
             desc = "I"

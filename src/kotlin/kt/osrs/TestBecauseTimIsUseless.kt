@@ -15,10 +15,10 @@ import org.objectweb.asm.Opcodes
 fun main(args: Array<String>) {
 
     NodeSequence {
-        jn {
-            fmn {
-                vn(Opcodes.ALOAD, 0)
-            } and vn(Opcodes.ILOAD, 3)
+        vn {
+            mmn(Opcodes.INVOKESTATIC, null, "(III)I") {
+                !fmn(Opcodes.GETSTATIC) and fmn(Opcodes.GETSTATIC) and fmn(Opcodes.GETSTATIC)
+            }
         }
     }.apply {
         tree?.apply {
