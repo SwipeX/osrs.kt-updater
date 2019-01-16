@@ -37,7 +37,7 @@ object MemberAnalyser {
                                     }
                                 } else {
                                     //Multi hook
-                                    val newMember =MemberIdentity().apply{
+                                    val newMember = MemberIdentity {
 
                                     }
                                     classIdentity.members.add(newMember)

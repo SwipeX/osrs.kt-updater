@@ -30,8 +30,8 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
     }
 
     infix fun TreeNode.hooks(arg: String): TreeNode {
-        collectName = arg
-        collect = true
+        this@hooks.collectName = arg
+        this@hooks.collect = true
         return this
     }
 
