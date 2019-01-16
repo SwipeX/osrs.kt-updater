@@ -12,7 +12,7 @@ class Client : Identifiable() {
         }
 
         memberIdentity {
-            name = "getNpcs"
+            name = "npcs"
             desc = "[L{Npc};"
             static = true
             nodeSequence {
@@ -24,7 +24,7 @@ class Client : Identifiable() {
             }
         }
         memberIdentity {
-            name = "getPlayers"
+            name = "players"
             desc = "[L{Player};"
             static = true
             nodeSequence {
@@ -56,7 +56,7 @@ class Client : Identifiable() {
             desc = "I"
             static = true
             nodeSequence {
-                vn() {
+                vn {
                     mmn(INVOKESTATIC, null, "(III)I") {
                         fmn(GETSTATIC) and fmn(GETSTATIC) and !fmn(GETSTATIC)
                     }
