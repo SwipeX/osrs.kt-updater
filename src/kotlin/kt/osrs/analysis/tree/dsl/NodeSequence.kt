@@ -62,7 +62,7 @@ class NodeSequence(init: NodeSequence.() -> TreeNode) {
 
     fun inc(opcode: Int = -1, number: Int = -1) = TreeNode(NodeType.IncNode, opcode).value(number)
     //VariableNode
-    fun vn(number: Int = -1, build: TreeNode.() -> TreeNode) = TreeNode(NodeType.VariableNode).value(number).apply {
+    fun vn(opcode: Int = -1, build: TreeNode.() -> TreeNode) = TreeNode(NodeType.VariableNode,opcode).apply {
         children.add(build(this))
     }
 

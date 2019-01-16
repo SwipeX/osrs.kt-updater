@@ -1,5 +1,6 @@
 package kt.osrs
 
+import kt.osrs.ClassAnalyser.flowGraphs
 import kt.osrs.analysis.tree.NodeVisitor
 import kt.osrs.analysis.tree.node.AbstractNode
 import kt.osrs.analysis.tree.node.FieldMemberNode
