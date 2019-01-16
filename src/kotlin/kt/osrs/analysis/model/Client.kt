@@ -36,26 +36,17 @@ class Client : Identifiable() {
             }
         }
         memberIdentity {
-            name = "cameraX"
-            desc = "I"
+            name = "cameraHooks"
             static = true
             nodeSequence {
-                vn {
-                    mmn(INVOKESTATIC, null, "(III)I") {
-                        !fmn(GETSTATIC) and fmn(GETSTATIC) and fmn(GETSTATIC)
-                    }
-                }
-            }
-        }
-        memberIdentity {
-            name = "cameraY"
-            desc = "I"
-            static = true
-            nodeSequence {
-                vn {
-                    mmn(INVOKESTATIC, null, "(III)I") {
-                        fmn(GETSTATIC) and !fmn(GETSTATIC) and fmn(GETSTATIC)
-                    }
+                mmn(INVOKEVIRTUAL, null, "(IIIIII)V") {
+                    fmn(GETSTATIC) and
+                            fmn(GETSTATIC) hooks "cameraX" and
+                            fmn(GETSTATIC) hooks "cameraZ" and
+                            fmn(GETSTATIC) hooks "cameraY" and
+                            fmn(GETSTATIC) hooks "cameraPitch" and
+                            fmn(GETSTATIC) hooks "cameraYaw" and
+                            vn(ILOAD)
                 }
             }
         }

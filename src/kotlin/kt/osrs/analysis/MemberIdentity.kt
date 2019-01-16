@@ -4,6 +4,7 @@ import kt.osrs.analysis.tree.dsl.NodeSequence
 import kt.osrs.analysis.tree.dsl.TreeNode
 
 class MemberIdentity(init: MemberIdentity.() -> Unit) : Identity() {
+
     init {
         apply(init)
     }

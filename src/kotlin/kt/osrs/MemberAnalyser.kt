@@ -11,28 +11,36 @@ object MemberAnalyser {
     fun identify(id: ClassIdentity, name: String) {
         if (id.members.isNotEmpty()) {
             for (memberIdentity in id.members) {
-                locate(memberIdentity, name)
+                locate(id, memberIdentity, name)
             }
         }
     }
 
     // Searching for members
-    fun locate(memberIdentity: MemberIdentity, name: String) {
+    fun locate(classIdentity: ClassIdentity, memberIdentity: MemberIdentity, name: String) {
         memberIdentity.sequence?.apply {
-            classes?.values?.forEach {
-                val graphz = graphs[it]
-                it.methods.forEach {
-                    val graph = graphz!![it]
-                    graph?.forEach {
+            classes?.values?.forEach { clazz ->
+                val graphz = graphs[clazz]
+                clazz.methods.forEach { method ->
+                    val graph = graphz!![method]
+                    graph?.forEach { block ->
                         val treeNode = memberIdentity.sequence!!.tree!!
-                        it.tree().forEach { matches(treeNode, it) }.let {
-                            val fields = treeNode.collected()
-                            if (fields.size == 1) {
-                                val node = fields[0]
-                                if (node.desc == interpolate(memberIdentity.desc!!) && (memberIdentity.static || node.owner == name)) {
-                                    memberIdentity.foundName = node.name!!
-                                    memberIdentity.foundOwnerName = node.owner!!
-                                    return@apply
+                        block.tree().forEach { matches(treeNode, it) }.let { match ->
+                            treeNode.collected().forEach {
+                                val node = it.second
+                                //Single hook
+                                if (it.first.collectName == null) {
+                                    if (node.desc == interpolate(memberIdentity.desc!!) && (memberIdentity.static || node.owner == name)) {
+                                        memberIdentity.foundName = node.name!!
+                                        memberIdentity.foundOwnerName = node.owner!!
+                                        return@apply
+                                    }
+                                } else {
+                                    //Multi hook
+                                    val newMember =MemberIdentity().apply{
+
+                                    }
+                                    classIdentity.members.add(newMember)
                                 }
                             }
                         }
