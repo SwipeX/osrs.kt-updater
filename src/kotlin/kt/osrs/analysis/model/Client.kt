@@ -85,5 +85,10 @@ class Client : Identifiable() {
                 }
             }
         }
+        memberIdentity {
+            nodeSequence {
+                vn() next vn()
+            }
+        }
     }
 }

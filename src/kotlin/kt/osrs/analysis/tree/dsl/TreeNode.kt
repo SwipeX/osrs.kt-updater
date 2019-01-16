@@ -7,6 +7,7 @@ import org.objectweb.asm.tree.FieldInsnNode
 
 class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1) {
     //core variables
+    var next: TreeNode? = null
     val children: MutableList<TreeNode> = mutableListOf()
     var parent: TreeNode? = null
     //optional parameters
@@ -27,6 +28,11 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
         this@TreeNode.children.add(this)
         it.parent = this@TreeNode
         it
+    }
+
+    infix fun next(vn: TreeNode): TreeNode {
+        this@TreeNode.next = this
+        return this
     }
 
     infix fun TreeNode.hooks(arg: String): TreeNode {
