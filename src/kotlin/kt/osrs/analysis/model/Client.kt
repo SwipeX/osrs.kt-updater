@@ -64,7 +64,7 @@ class Client : Identifiable() {
             }
         }
         memberIdentity {
-            name = "baseX"
+            name = "baseLocation"
             desc = "I"
             static = true
             nodeSequence {
@@ -72,35 +72,13 @@ class Client : Identifiable() {
                     node(IADD) {
                         node(ISHL) {
                             node(ISUB) {
-                                fmn(GETSTATIC) and !fmn(GETSTATIC)
+                                fmn(GETSTATIC) and fmn(GETSTATIC) hooks "baseX"
                             } and nn(BIPUSH, 7)
                         }
                     } and node(IADD) {
                         node(ISHL) {
                             node(ISUB) {
-                                fmn(GETSTATIC) and fmn(GETSTATIC)
-                            } and nn(BIPUSH, 7)
-                        }
-                    }
-                }
-            }
-        }
-        memberIdentity {
-            name = "baseY"
-            desc = "I"
-            static = true
-            nodeSequence {
-                mmn(INVOKESTATIC, null, "(III)V") {
-                    node(IADD) {
-                        node(ISHL) {
-                            node(ISUB) {
-                                fmn(GETSTATIC) and fmn(GETSTATIC)
-                            } and nn(BIPUSH, 7)
-                        }
-                    } and node(IADD) {
-                        node(ISHL) {
-                            node(ISUB) {
-                                fmn(GETSTATIC) and !fmn(GETSTATIC)
+                                fmn(GETSTATIC) and fmn(GETSTATIC) hooks "baseY"
                             } and nn(BIPUSH, 7)
                         }
                     }
