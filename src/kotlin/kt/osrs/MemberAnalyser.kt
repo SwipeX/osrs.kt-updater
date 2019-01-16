@@ -10,8 +10,8 @@ import kt.osrs.analysis.tree.node.AbstractNode
 object MemberAnalyser {
     fun identify(id: ClassIdentity, name: String) {
         if (id.members.isNotEmpty()) {
-            for (memberIdentity in id.members) {
-                locate(id, memberIdentity, name)
+            for (i in 0 until id.members.size) {
+                locate(id, id.members[i], name)
             }
         }
     }
@@ -25,6 +25,7 @@ object MemberAnalyser {
                     val graph = graphz!![method]
                     graph?.forEach { block ->
                         val treeNode = memberIdentity.sequence!!.tree!!
+                        var shouldReturn = false
                         block.tree().forEach { matches(treeNode, it) }.let { match ->
                             treeNode.collected().forEach {
                                 val node = it.second
@@ -33,16 +34,21 @@ object MemberAnalyser {
                                     if (node.desc == interpolate(memberIdentity.desc!!) && (memberIdentity.static || node.owner == name)) {
                                         memberIdentity.foundName = node.name!!
                                         memberIdentity.foundOwnerName = node.owner!!
-                                        return@apply
+                                        shouldReturn = true
                                     }
                                 } else {
                                     //Multi hook
-                                    val newMember = MemberIdentity {
-
-                                    }
-                                    classIdentity.members.add(newMember)
+                                    classIdentity.members.add(MemberIdentity {
+                                        this.desc = node.desc
+                                        this.name = it.first.collectName!!
+                                        this.foundName = node.name
+                                        this.foundOwnerName = node.owner
+                                    })
+                                    shouldReturn = true
                                 }
                             }
+                            if (shouldReturn)
+                                return
                         }
                     }
                 }
