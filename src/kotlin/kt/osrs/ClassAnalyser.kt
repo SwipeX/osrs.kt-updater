@@ -2,8 +2,6 @@ package kt.osrs
 
 import kt.osrs.analysis.ClassIdentity
 import kt.osrs.analysis.model.Identifiable
-import kt.osrs.analysis.rank.ClassRanking
-import kt.osrs.analysis.rank.build
 import kt.osrs.analysis.tree.flow.FlowVisitor
 import kt.osrs.analysis.tree.flow.graph.FlowGraph
 import kt.osrs.event.Event
@@ -21,7 +19,6 @@ object ClassAnalyser {
     val classes: MutableMap<String, ClassNode>? = archive.build()
     val graphs = flowGraphs(classes!!)
     val identifiers: List<Identifiable> = getAllFromReflection()
-    var rankings: MutableMap<String, ClassRanking>? = build(classes!!.values)
     val identified = Event<IdentifiedEvent>()
     var debug = true
 

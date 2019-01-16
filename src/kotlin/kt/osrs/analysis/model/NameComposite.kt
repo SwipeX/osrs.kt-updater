@@ -1,8 +1,6 @@
 package kt.osrs.analysis.model
 
 import kt.osrs.analysis.classIdentity
-import kt.osrs.analysis.rank.usage.GETFIELD
-import kt.osrs.analysis.rank.usage.PUTFIELD
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,17 +22,13 @@ class NameComposite : Identifiable() {
         memberIdentity {
             name = "formattedName"
             desc = "Ljava/lang/String;"
-            usageDefinition {
-                "{NameComposite}" from "()Z" using GETFIELD x 1
-            }
+
         }
 
         memberIdentity {
             name = "name"
             desc = "Ljava/lang/String;"
-            usageDefinition {
-                "{NameComposite}" from "()Ljava/lang/String;" using GETFIELD x 1
-            }
+
         }
     }
 }
