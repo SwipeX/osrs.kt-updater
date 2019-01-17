@@ -56,7 +56,7 @@ object MemberAnalyser {
         }
     }
 
-    private fun matches(treeNode: TreeNode, node: AbstractNode): Boolean {
+    private fun matches(treeNode: TreeNode, node: AbstractNode, nextIndex: Int = 1): Boolean {
         if (!treeNode.accepts(node)) return false
         //check for children recursively
         if (node.size < treeNode.children.size) return false
@@ -69,11 +69,13 @@ object MemberAnalyser {
                 } else if (i == node.size - 1) return false
             }
         }
-        //check for parent recursively -- cannot do because of SOF atm
-//        if (treeNode.parent != null) {
-//            if (node.parent() == null) return false
-//            if (!treeNode.parent!!.accepts(node.parent()!!)) return false
-//        }
+        if (treeNode.next != null) {
+            for (i in nextIndex until node.size) {
+                if (matches(treeNode.next!!, node[i], i + 1)) {
+                    break
+                } else if (i == node.size - 1) return false
+            }
+        }
         //node is accepted, we will match them together
         treeNode.match = node.insn()
         return true

@@ -30,9 +30,8 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
         it
     }
 
-    infix fun next(vn: TreeNode): TreeNode {
-        this@TreeNode.next = this
-        return this
+    infix fun TreeNode.next(node: TreeNode) = node.let {
+        next = node
     }
 
     infix fun TreeNode.hooks(arg: String): TreeNode {
