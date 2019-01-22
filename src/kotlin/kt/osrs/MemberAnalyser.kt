@@ -30,6 +30,8 @@ object MemberAnalyser {
                         //check if TREE and if so, match all just like children in match
                         nodeTree.forEach { matches(treeNode, it) }.let { match ->
                             treeNode.collected().forEach {
+                                if (memberIdentity.name == "destinations")
+                                    println()
                                 val node = it.second
                                 //Single hook
                                 if (it.first.collectName == null) {
@@ -63,14 +65,18 @@ object MemberAnalyser {
         if (node.size < treeNode.children.size) return false
         //check for children recursively
         var lastIdx = 0
+        var matchedIndices = mutableListOf<Int>()
         treeNode.children.forEach { child ->
             for (i in lastIdx until node.size) {
                 if (matches(child, node[i])) {
                     lastIdx = i + 1
+                    matchedIndices.add(i)
                     break
                 } else if (i == node.size - 1) return false
             }
         }
+        //not all children were found
+        if (matchedIndices.size < treeNode.children.size) return false
         //node is accepted, we will match them together
         treeNode.match = node.insn()
         return true

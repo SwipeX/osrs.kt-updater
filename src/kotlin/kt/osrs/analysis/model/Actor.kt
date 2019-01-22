@@ -42,30 +42,18 @@ class Actor : Identifiable() {
             }
         }
         memberIdentity {
-            name = "localX"
-            desc = "I"
-            sequence = NodeSequence {
-                mmn(null, "(III)V") {
-                    !fmn() {
-                        vn(ALOAD, 0)
-                    } and fmn() {
-                        vn(ALOAD, 0)
-                    } and vn(ILOAD, 1)
-                }
-            }
-        }
-        memberIdentity {
-            name = "localY"
+            name = "locals"
             desc = "I"
             sequence = NodeSequence {
                 mmn(null, "(III)V") {
                     fmn() {
                         vn(ALOAD, 0)
-                    } and !fmn() {
+                    } hooks "localX" and fmn() {
                         vn(ALOAD, 0)
-                    } and vn(ILOAD, 1)
+                    } hooks "localY" and vn(ILOAD, 1)
                 }
             }
         }
+
     }
 }

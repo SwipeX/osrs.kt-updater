@@ -6,6 +6,7 @@ class NodeSequence(init: NodeSequence.() -> TreeNode) {
     init {
         tree = init(this)
     }
+
     fun tree() = TreeNode(NodeType.AbstractNode, Int.MIN_VALUE)
     fun tree(build: TreeNode.() -> TreeNode) = TreeNode(NodeType.AbstractNode, Int.MIN_VALUE).apply { children.add(build(this)) }
     //AbstractNode
@@ -93,6 +94,10 @@ class NodeSequence(init: NodeSequence.() -> TreeNode) {
     }
 
     fun fmn(opcode: Int = -1, owner: String? = null) = TreeNode(NodeType.FieldMemberNode, opcode).owner(owner)
+    fun fmn(opcode: Int = -1, owner: String? = null, build: TreeNode.() -> TreeNode) = TreeNode(NodeType.FieldMemberNode, opcode).owner(owner).apply {
+        children.add(build(this))
+    }
+
     fun fmn(opcode: Int = -1, owner: String? = null, desc: String? = null) = TreeNode(NodeType.FieldMemberNode, opcode).owner(owner).desc(desc)
     //MethodMemberNode
     fun mmn(owner: String? = null) = TreeNode(NodeType.MethodMemberNode).owner(owner)

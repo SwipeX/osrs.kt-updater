@@ -51,7 +51,7 @@ class ExchangeOffer : Identifiable() {
             desc = "I"
             sequence = NodeSequence {
                 node(IASTORE) {
-                   !fmn() {
+                   !fmn {
                         node(AALOAD) {
                             fmn(GETSTATIC) and vn()
                         }
@@ -62,9 +62,9 @@ class ExchangeOffer : Identifiable() {
         memberIdentity {
             name = "state"
             desc = "B"
-//            treePattern {
-//                opcodes(PUTFIELD)
-//            }
+            sequence = NodeSequence {
+                !fmn(PUTFIELD,null)
+            }
         }
     }
 }

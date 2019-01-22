@@ -24,6 +24,25 @@ class Client : Identifiable() {
             }
         }
         memberIdentity {
+            name = "destinations"
+            desc = "I"
+            static = true
+            nodeSequence {
+                tree {
+                    fmn(PUTSTATIC) {
+                        node(ISUB) {
+                            fmn(GETSTATIC) hooks "destinationX" and vn()
+                        }
+                    } and fmn(PUTSTATIC) {
+                        node(ISUB) {
+                            fmn(GETSTATIC) hooks "destinationY" and vn()
+                        }
+                    }
+                }
+            }
+        }
+
+        memberIdentity {
             name = "players"
             desc = "[L{Player};"
             static = true
