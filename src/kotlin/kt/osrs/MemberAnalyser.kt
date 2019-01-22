@@ -26,7 +26,9 @@ object MemberAnalyser {
                     graph?.forEach { block ->
                         val treeNode = memberIdentity.sequence!!.tree!!
                         var shouldReturn = false
-                        block.tree().forEach { matches(treeNode, it) }.let { match ->
+                        val nodeTree = if (treeNode.opcode == Int.MIN_VALUE) block.paddedTree() else block.tree()
+                        //check if TREE and if so, match all just like children in match
+                        nodeTree.forEach { matches(treeNode, it) }.let { match ->
                             treeNode.collected().forEach {
                                 val node = it.second
                                 //Single hook
@@ -56,22 +58,15 @@ object MemberAnalyser {
         }
     }
 
-    private fun matches(treeNode: TreeNode, node: AbstractNode, nextIndex: Int = 1): Boolean {
+    private fun matches(treeNode: TreeNode, node: AbstractNode): Boolean {
         if (!treeNode.accepts(node)) return false
-        //check for children recursively
         if (node.size < treeNode.children.size) return false
+        //check for children recursively
         var lastIdx = 0
         treeNode.children.forEach { child ->
             for (i in lastIdx until node.size) {
                 if (matches(child, node[i])) {
                     lastIdx = i + 1
-                    break
-                } else if (i == node.size - 1) return false
-            }
-        }
-        if (treeNode.next != null) {
-            for (i in nextIndex until node.size) {
-                if (matches(treeNode.next!!, node[i], i + 1)) {
                     break
                 } else if (i == node.size - 1) return false
             }

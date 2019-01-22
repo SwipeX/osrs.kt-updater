@@ -86,8 +86,25 @@ class Client : Identifiable() {
             }
         }
         memberIdentity {
+            name = "levels"
+            desc = "[I"
+            static = true
             nodeSequence {
-                vn() and vn()
+                tree {
+                    vn(ISTORE) {
+                        mmn("{PacketBuffer}")
+                    } and vn(ISTORE) {
+                        mmn("{PacketBuffer}")
+                    } and vn(ISTORE) {
+                        mmn("{PacketBuffer}")
+                    } and node(IASTORE) {
+                        fmn(GETSTATIC) hooks "experiences"
+                    } and node(IASTORE) {
+                        fmn(GETSTATIC) hooks "currentLevels"
+                    } and node(IASTORE) {
+                        fmn(GETSTATIC) hooks "realLevels"
+                    }
+                }
             }
         }
     }

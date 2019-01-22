@@ -7,7 +7,6 @@ import org.objectweb.asm.tree.FieldInsnNode
 
 class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1) {
     //core variables
-    var next: TreeNode? = null
     val children: MutableList<TreeNode> = mutableListOf()
     var parent: TreeNode? = null
     //optional parameters
@@ -28,10 +27,6 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
         this@TreeNode.children.add(this)
         it.parent = this@TreeNode
         it
-    }
-
-    infix fun TreeNode.next(node: TreeNode) = node.let {
-        next = node
     }
 
     infix fun TreeNode.hooks(arg: String): TreeNode {
@@ -58,6 +53,7 @@ class TreeNode(val type: NodeType = NodeType.AbstractNode, val opcode: Int = -1)
 
     //Checks for opcode, type, value, desc, owner --- where applicable or non-null
     fun accepts(node: AbstractNode): Boolean {
+        if (opcode == Int.MIN_VALUE) return true
         //check against opcode
         if (opcode != -1 && opcode != node.opcode()) return false
         //check against type

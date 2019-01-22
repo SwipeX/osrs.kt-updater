@@ -6,6 +6,8 @@ class NodeSequence(init: NodeSequence.() -> TreeNode) {
     init {
         tree = init(this)
     }
+    fun tree() = TreeNode(NodeType.AbstractNode, Int.MIN_VALUE)
+    fun tree(build: TreeNode.() -> TreeNode) = TreeNode(NodeType.AbstractNode, Int.MIN_VALUE).apply { children.add(build(this)) }
     //AbstractNode
     fun node(opcode: Int = -1) = TreeNode(NodeType.AbstractNode, opcode)
 

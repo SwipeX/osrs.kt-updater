@@ -1,6 +1,7 @@
 package kt.osrs.analysis.tree.flow
 
 import kt.osrs.analysis.tree.NodeTree
+import kt.osrs.analysis.tree.node.AbstractNode
 import kt.osrs.analysis.tree.util.TreeBuilder
 import org.objectweb.asm.Label
 import org.objectweb.asm.commons.util.Assembly
@@ -58,6 +59,14 @@ class Block
         return tree!!
     }
 
+    fun paddedTree(): NodeTree {
+        val tempTree = NodeTree(this)
+        val node = AbstractNode(null,null,0,0)
+        node.addAll(tree())
+        tempTree.addFirst(node)
+        return tempTree
+    }
+
     fun follow(handler: BlockHandler): Boolean {
         val followed = ArrayList<Block>()
         var followIndex = 0
@@ -90,7 +99,7 @@ class Block
         val instructions = LinkedList<AbstractInsnNode>()
         addInstructionsTo(this, instructions)
         follow(object : BlockHandler {
-            override fun handle(followIndex: Int, block: kt.osrs.analysis.tree.flow.Block): Boolean{
+            override fun handle(followIndex: Int, block: kt.osrs.analysis.tree.flow.Block): Boolean {
                 addInstructionsTo(block, instructions)
                 return true
             }
