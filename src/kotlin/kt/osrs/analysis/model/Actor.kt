@@ -28,6 +28,38 @@ class Actor : Identifiable() {
                 }
             }
         }
+
+        // TODO FIX.
+        memberIdentity {
+            name = "animationDelay"
+            desc = "I"
+            nodeSequence {
+                fmn {
+                    node(ISUB) {
+                        !fmn {
+                            node(DUP) {
+                                vn()
+                            }
+                        } and nn(ICONST_1)
+                    }
+                }
+            }
+        }
+
+        memberIdentity {
+            name = "location"
+            desc = "I"
+            nodeSequence {
+                jn(IF_ICMPEQ) {
+                    fmn(GETFIELD) {
+                        vn(ALOAD)
+                    } hooks "orientation" and fmn(GETFIELD) {
+                        vn(ALOAD)
+                    }
+                }
+            }
+        }
+
         memberIdentity {
             name = "interactingIndex"
             desc = "I"
